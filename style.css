@@ -296,15 +296,18 @@ body {
 /* =========================
    EXPERIENCE APPLE STYLE
 ========================= */
+/* =========================
+   EXPERIENCE GRID FIX
+========================= */
 
 .experience-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
-  margin-top: 50px;
+  gap: 25px;
+  margin-top: 40px;
 }
 
-/* Card base style */
+/* Card style (THIS IS WHAT YOU WERE MISSING) */
 .experience-card {
   background: var(--apple-bg);
   border: 1px solid var(--apple-border);
@@ -312,25 +315,26 @@ body {
   padding: 30px;
   box-shadow: var(--apple-shadow);
 
-  opacity: 0;
-  transform: translateY(60px) scale(0.98);
+  transition: var(--transition);
 
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  /* important: makes cards visible properly */
+  display: block;
 }
 
-/* Hover like Apple cards */
+/* Hover effect */
 .experience-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 
 /* Title */
 .experience-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+  color: var(--apple-text);
 }
 
-/* Meta line */
+/* Meta */
 .role-meta {
   font-size: 0.9rem;
   color: var(--apple-secondary);
@@ -357,18 +361,7 @@ body {
   border-radius: 999px;
   background: var(--apple-gray);
   border: 1px solid var(--apple-border);
-  transition: 0.3s;
-}
-
-.experience-tags span:hover {
-  background: var(--apple-blue);
-  color: white;
-}
-/* =========================
-   CONTACT
-========================= */
-a {
-  color: var(--apple-blue);
+  color: var(--apple-text);
 }
 
 /* =========================
