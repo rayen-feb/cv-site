@@ -4,9 +4,6 @@ const observerOptions = {
   rootMargin: '0px 0px -50px 0px'
 };
 
-// --- GSAP and ScrollTrigger Imports ---
-gsap.registerPlugin(ScrollTrigger);
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
@@ -19,12 +16,11 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// --- GSAP Scroll Video Logic ---
+// --- Apple-Style Scroll Video Logic ---
 const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
-const msg2 = document.getElementById('msg2'); // Added for "Data Science Engineer"
-const msg3 = document.getElementById('msg3'); // Added for "SaaS Developer"
+const msg2 = document.getElementById('msg2');
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
