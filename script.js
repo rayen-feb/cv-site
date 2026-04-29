@@ -1,7 +1,7 @@
 // Scroll Reveal Animation
 const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
+  threshold: 0.05,
+  rootMargin: '0px 0px -20px 0px'
 };
 
 // --- GSAP and ScrollTrigger Imports ---
@@ -18,6 +18,11 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Refresh ScrollTrigger on load to ensure mobile calculations are accurate
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
 
 // --- Apple-Style Scroll Video Logic ---
 const scrollContainer = document.getElementById('hero-scroll');

@@ -380,6 +380,7 @@ a:focus-visible {
   opacity: 0;
   transform: translateY(40px);
   transition: var(--transition);
+  will-change: transform, opacity;
 }
 
 .reveal.active {
