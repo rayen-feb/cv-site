@@ -45,19 +45,19 @@ function updateVideoFrame() {
   progressBar.style.width = `${fraction * 100}%`;
 
   // Text Fade Logic
-  // msg1 starts visible, fades out as we scroll
-  msg1.style.opacity = fraction < 0.2 ? 1 : Math.max(0, 1 - (fraction - 0.2) * 5);
-  msg1.style.transform = `translate(-50%, calc(-50% - ${fraction * 50}px))`;
+  // msg1 starts visible, fades out as we scroll, centering remains fixed
+  const msg1Opacity = fraction < 0.2 ? 1 : Math.max(0, 1 - (fraction - 0.2) * 5);
+  msg1.style.opacity = msg1Opacity;
+  msg1.style.transform = `translate(-50%, calc(-50% - ${fraction * 100}px))`;
   msg1.style.pointerEvents = fraction < 0.25 ? "auto" : "none";
 
-  // msg2 appears in the middle of the scroll
-  if (fraction > 0.4 && fraction < 0.8) {
-    const subOpacity = Math.min(1, (fraction - 0.4) * 5) * Math.min(1, (0.8 - fraction) * 5);
-    msg2.style.opacity = subOpacity;
+  // msg2 appears in the middle of the scroll (between 40% and 80%)
+  if (fraction > 0.35 && fraction < 0.85) {
+    msg2.style.opacity = Math.min(1, (fraction - 0.35) * 5) * Math.min(1, (0.85 - fraction) * 5);
     msg2.style.transform = `translate(-50%, -50%)`;
   } else {
     msg2.style.opacity = 0;
-    msg2.style.transform = `translate(-50%, calc(-50% + 20px))`;
+    msg2.style.transform = `translate(-50%, calc(-50% + 50px))`;
   }
 }
 
