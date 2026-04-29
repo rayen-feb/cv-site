@@ -65,7 +65,7 @@ body {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  padding: 12px 20px;
+  padding: 8px 20px;
   align-items: center;
 }
 
@@ -98,7 +98,7 @@ body {
 
 /* SCROLL VIDEO SECTION (Apple-Style) */
 .scroll-section {
-  height: 1200vh; /* Increased height for all sections */
+  height: 400vh; /* Minimized scroll height for intro */
   background: #000; /* Fallback for bottom of page */
   position: relative;
   width: 100%;
@@ -204,10 +204,12 @@ body {
 .block {
   width: 90%;
   max-width: 1000px;
+  margin: 160px auto;
   padding: 0 40px;
+  padding-top: 60px;
   text-align: center;
-  background: transparent;
-  position: absolute;
+  background: var(--apple-bg);
+  transition: background var(--transition);
 }
 
 h2 {

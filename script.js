@@ -21,11 +21,6 @@ const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
 const msg2 = document.getElementById('msg2');
-const summary = document.getElementById('summary');
-const skills = document.getElementById('skills');
-const projects = document.getElementById('projects');
-const experience = document.getElementById('experience');
-const contact = document.getElementById('contact');
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
@@ -70,13 +65,8 @@ function updateVideoFrame() {
 
   // Define scroll ranges for each section (Start, End)
   const ranges = [
-    { el: msg1, start: 0.0, end: 0.15 },
-    { el: msg2, start: 0.15, end: 0.30 },
-    { el: summary, start: 0.30, end: 0.45 },
-    { el: skills, start: 0.45, end: 0.60 },
-    { el: projects, start: 0.60, end: 0.75 },
-    { el: experience, start: 0.75, end: 0.90 },
-    { el: contact, start: 0.90, end: 1.0 }
+    { el: msg1, start: 0.0, end: 0.45 },
+    { el: msg2, start: 0.55, end: 1.0 }
   ];
 
   ranges.forEach((range) => {
@@ -89,7 +79,7 @@ function updateVideoFrame() {
       // Fade in/out logic
       const opacity = localProgress < 0.2 ? localProgress * 5 : (localProgress > 0.8 ? (1 - localProgress) * 5 : 1);
       el.style.opacity = Math.max(0, Math.min(1, opacity));
-      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 50}px))`;
+      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 80}px))`;
       el.style.pointerEvents = "auto";
     } else {
       el.style.opacity = 0;
