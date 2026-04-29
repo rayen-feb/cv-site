@@ -112,9 +112,112 @@ video.addEventListener('loadedmetadata', () => {
 });
 
 
+
+
 /* =========================
    3. DARK MODE
 ========================= */
+
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".case-block").forEach((block, i) => {
+  gsap.fromTo(block,
+    {
+      opacity: 0,
+      y: 60
+    },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: block,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+});
+
+gsap.registerPlugin(ScrollTrigger);
+
+// HERO TIMELINE (Apple cinematic intro)
+const heroTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#hero-scroll",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+// 1. Video cinematic zoom + dark feel
+heroTL.to(".hero-video", {
+  scale: 1.25,
+  filter: "brightness(0.3)",
+  ease: "none"
+}, 0);
+
+// 2. Text parallax (Apple style depth)
+heroTL.to("#msg1", {
+  y: -120,
+  opacity: 0,
+  scale: 0.95,
+  ease: "power2.out"
+}, 0);
+
+// 3. Smooth fade overlay appears
+heroTL.to(".fade-to-black-overlay", {
+  opacity: 1,
+  ease: "none"
+}, 0.6);
+
+/* cards */
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from(".project", {
+  opacity: 0,
+  y: 80,
+  duration: 1,
+  stagger: 0.15,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "#projects",
+    start: "top 80%"
+  }
+});
+
+/********************* */
+
+document.querySelectorAll(".project").forEach(card => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (x - centerX) / -20;
+
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      scale(1.03)
+    `;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
+  });
+});
 
 const themeToggleButton = document.getElementById('theme-toggle');
 const html = document.documentElement;

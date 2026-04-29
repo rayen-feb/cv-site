@@ -335,3 +335,81 @@ footer {
   display: flex;
   gap: 10px;
 }
+
+
+/* =========================
+Apple-style feel
+==================*/
+
+.case-study {
+  max-width: 900px;
+  margin: 120px auto;
+  padding: 40px;
+}
+
+.case-hero {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.case-block {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+  margin-bottom: 60px;
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--apple-gray);
+  box-shadow: var(--apple-shadow);
+}
+
+.case-block h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.case-block p {
+  color: var(--apple-secondary);
+  line-height: 1.7;
+}
+.hero-video {
+  transform: scale(1.1);
+  will-change: transform;
+}
+
+.hero-text {
+  will-change: transform, opacity;
+}
+
+.scroll-section {
+  overflow: hidden;
+}
+
+
+
+
+/* aple cards */ 
+
+.project {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+  transition: transform 0.4s ease;
+}
+
+.project:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-info {
+  transition: transform 0.3s ease;
+}
