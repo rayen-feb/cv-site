@@ -21,6 +21,11 @@ const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
 const msg2 = document.getElementById('msg2');
+const summary = document.getElementById('summary');
+const skills = document.getElementById('skills');
+const projects = document.getElementById('projects');
+const experience = document.getElementById('experience');
+const contact = document.getElementById('contact');
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
@@ -63,38 +68,37 @@ function updateVideoFrame() {
   // Update Progress Bar
   progressBar.style.width = `${scrollFraction * 100}%`;
 
-  // Text Fade Logic
-  // msg1 (Ahmed Rayen) starts visible, fades out as we scroll
-  const msg1Opacity = scrollFraction < 0.2 ? 1 : Math.max(0, 1 - (scrollFraction - 0.2) * 5);
-  // Apply a more noticeable upward parallax effect as it fades
-  msg1.style.opacity = msg1Opacity;
-  msg1.style.transform = `translate(-50%, calc(-50% - ${scrollFraction * 150}px))`; // Increased parallax
-  // Disable pointer events when fading out to allow interaction with elements below
-  msg1.style.pointerEvents = scrollFraction < 0.25 ? "auto" : "none";
+  // Define scroll ranges for each section (Start, End)
+  const ranges = [
+    { el: msg1, start: 0.0, end: 0.15 },
+    { el: msg2, start: 0.15, end: 0.30 },
+    { el: summary, start: 0.30, end: 0.45 },
+    { el: skills, start: 0.45, end: 0.60 },
+    { el: projects, start: 0.60, end: 0.75 },
+    { el: experience, start: 0.75, end: 0.90 },
+    { el: contact, start: 0.90, end: 1.0 }
+  ];
 
-  // msg2 (SaaS Developer) appears in the middle of the scroll range
-  // Active between 0.4 and 0.9 scroll fraction
-  const msg2ActiveStart = 0.4;
-  const msg2ActiveEnd = 0.9;
-  if (scrollFraction > msg2ActiveStart && scrollFraction < msg2ActiveEnd) {
-    // Fade in from msg2ActiveStart to msg2ActiveStart + 0.15
-    const fadeInDuration = 0.15;
-    const fadeInProgress = Math.min(1, (scrollFraction - msg2ActiveStart) / fadeInDuration);
-    // Fade out from msg2ActiveEnd - 0.15 to msg2ActiveEnd
-    const fadeOutDuration = 0.15;
-    const fadeOutProgress = Math.min(1, (msg2ActiveEnd - scrollFraction) / fadeOutDuration);
+  ranges.forEach((range) => {
+    const { el, start, end } = range;
+    if (scrollFraction >= start && scrollFraction <= end) {
+      // Calculate internal fade
+      const duration = end - start;
+      const localProgress = (scrollFraction - start) / duration;
+      
+      // Fade in/out logic
+      const opacity = localProgress < 0.2 ? localProgress * 5 : (localProgress > 0.8 ? (1 - localProgress) * 5 : 1);
+      el.style.opacity = Math.max(0, Math.min(1, opacity));
+      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 50}px))`;
+      el.style.pointerEvents = "auto";
+    } else {
+      el.style.opacity = 0;
+      el.style.pointerEvents = "none";
+    }
+  });
 
-    msg2.style.opacity = Math.min(fadeInProgress, fadeOutProgress);
-    // Apply a subtle upward parallax effect
-    msg2.style.transform = `translate(-50%, calc(-50% - ${(scrollFraction - msg2ActiveStart) * 80}px))`; // Increased parallax
-  } else {
-    msg2.style.opacity = 0;
-    msg2.style.transform = `translate(-50%, calc(-50% + 80px))`; // Move slightly down when hidden
-  }
-
-  // 6. Optional: Fade-to-black transition at end of hero section
-  // Starts fading in around 70% of the scroll section, fully black at 95%
-  const fadeStart = 0.7;
+  // Fade-to-black transition at the very end
+  const fadeStart = 0.85;
   const fadeEnd = 0.95;
   if (scrollFraction > fadeStart) {
     const fadeProgress = Math.min(1, (scrollFraction - fadeStart) / (fadeEnd - fadeStart));

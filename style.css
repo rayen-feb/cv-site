@@ -98,7 +98,7 @@ body {
 
 /* SCROLL VIDEO SECTION (Apple-Style) */
 .scroll-section {
-  height: 400vh; /* Length of the scroll track for the intro */
+  height: 1200vh; /* Increased height for all sections */
   background: #000; /* Fallback for bottom of page */
   position: relative;
   width: 100%;
@@ -202,13 +202,12 @@ body {
 
 /* BLOCK SECTIONS */
 .block {
+  width: 90%;
   max-width: 1000px;
-  margin: 160px auto;
   padding: 0 40px;
-  padding-top: 60px;
   text-align: center;
-  background: var(--apple-bg);
-  transition: background var(--transition);
+  background: transparent;
+  position: absolute;
 }
 
 h2 {
