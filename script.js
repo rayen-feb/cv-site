@@ -4,6 +4,9 @@ const observerOptions = {
   rootMargin: '0px 0px -50px 0px'
 };
 
+// --- GSAP and ScrollTrigger Imports ---
+gsap.registerPlugin(ScrollTrigger);
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
@@ -16,10 +19,12 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// --- Apple-Style Scroll Video Logic ---
+// --- GSAP Scroll Video Logic ---
 const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
+const msg2 = document.getElementById('msg2'); // Added for "Data Science Engineer"
+const msg3 = document.getElementById('msg3'); // Added for "SaaS Developer"
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
@@ -27,95 +32,18 @@ const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 let targetFraction = 0;    // Where the scroll is actually at
 let currentFraction = 0;   // Where the animation currently is (smoothed)
 let currentVideoTime = 0; 
-const easingFactor = 0.08; // Lower = smoother/heavier feel (Apple-like)
+const easingFactor = 0.08; // Lower = smoother/heavier feel (Apple-like). Adjust for responsiveness.
 
 // Linear interpolation function for smoothing values
 function lerp(start, end, amt) {
   return (1 - amt) * start + amt * end;
 }
 
-// Function to calculate the current scroll fraction of the video section
-function getScrollFraction() {
-  const containerRect = scrollContainer.getBoundingClientRect();
-  const totalHeight = scrollContainer.offsetHeight - window.innerHeight;
-  // Calculate how far we have scrolled into the section (0 when at top, totalHeight when at bottom)
-  let relativeScroll = -containerRect.top;
-  let scrollFraction = relativeScroll / totalHeight;
-  // Clamp the fraction between 0 and 1
-  return Math.max(0, Math.min(scrollFraction, 1));
-}
-
-function updateVideoFrame() {
-  // 1. Update target based on current scroll position
-  targetFraction = getScrollFraction();
-  
-  // 2. Interpolate current position toward target for smoothing
-  // This allows the video to "glide" into place even after scrolling stops
-  currentFraction = lerp(currentFraction, targetFraction, easingFactor);
-
-  // 3. Scrub Video
-  if (video.readyState >= 2 && video.duration && !isNaN(video.duration)) {
-    const targetVideoTime = video.duration * currentFraction;
-    
-    // Only update currentTime if change is significant to reduce CPU/GPU churn
-    // Most monitors refresh at 60Hz, so we don't need micro-second precision
-    currentVideoTime = lerp(currentVideoTime, targetVideoTime, easingFactor);
-    video.currentTime = currentVideoTime;
-
-    // Subtle parallax zoom effect
-    video.style.transform = `scale(${1 + currentFraction * 0.1})`;
-  }
-
-  // Update Progress Bar
-  progressBar.style.width = `${currentFraction * 100}%`;
-
-  // Define scroll ranges for each section (Start, End)
-  // Values are normalized (0.0 to 1.0)
-  const ranges = [
-    { el: msg1, start: 0.0, end: 0.8 }
-  ];
-
-  ranges.forEach((range) => {
-    const { el, start, end } = range;
-    if (currentFraction >= start && currentFraction <= end) {
-      // Calculate internal fade
-      const duration = end - start;
-      const localProgress = (currentFraction - start) / duration;
-      
-      // Fade in/out logic
-      const opacity = localProgress < 0.2 ? localProgress * 5 : (localProgress > 0.8 ? (1 - localProgress) * 5 : 1);
-      el.style.opacity = Math.max(0, Math.min(1, opacity));
-      
-      // Smoother Parallax: subtle vertical movement linked to smoothed progress
-      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 100}px))`;
-      el.style.pointerEvents = "auto";
-    } else {
-      el.style.opacity = 0;
-      el.style.pointerEvents = "none";
-    }
-  });
-
-  // Fade-to-black transition at the very end
-  const fadeStart = 0.85;
-  const fadeEnd = 0.95;
-  if (currentFraction > fadeStart) {
-    const fadeProgress = Math.min(1, (currentFraction - fadeStart) / (fadeEnd - fadeStart));
-    fadeToBlackOverlay.style.opacity = fadeProgress;
-  } else {
-    fadeToBlackOverlay.style.opacity = 0;
-  }
-
-  // Keep the animation loop running
-  requestAnimationFrame(updateVideoFrame);
-}
-
 // Function to initialize video time based on current scroll position
 function initializeVideoTime() {
   if (video.duration && !isNaN(video.duration)) {
-    targetFraction = getScrollFraction();
-    currentFraction = targetFraction; 
-    currentVideoTime = video.duration * currentFraction;
-    video.currentTime = currentVideoTime; // Set video to initial frame
+    // Set initial video time to 0 to ensure it starts at the beginning
+    video.currentTime = 0;
   }
 }
 
@@ -130,8 +58,87 @@ if (video.readyState >= 1) { // HAVE_METADATA or higher
   initializeVideoTime(); // Attempt immediate initialization if video is already somewhat ready
 }
 
-// Start the continuous render loop
-requestAnimationFrame(updateVideoFrame);
+// --- GSAP ScrollTrigger Setup ---
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: scrollContainer, // The element that triggers the scroll animation
+    start: "top top",         // When the top of the trigger hits the top of the viewport
+    end: "+=300%",            // Pin for 300% of the viewport height (adjust this value to control scroll duration)
+    scrub: true,              // Smoothly links the animation progress to the scroll position
+    pin: true,                // Pins the trigger element for the duration of the scroll
+    anticipatePin: 1,         // Helps prevent a jump when pinning starts
+    onUpdate: (self) => {
+      // Update the progress bar based on ScrollTrigger's progress
+      progressBar.style.width = `${self.progress * 100}%`;
+
+      // Smoothly update video currentTime
+      if (video.readyState >= 2 && video.duration && !isNaN(video.duration)) {
+        const targetVideoTime = video.duration * self.progress;
+        currentVideoTime = lerp(currentVideoTime, targetVideoTime, easingFactor);
+        video.currentTime = currentVideoTime;
+      }
+    }
+  }
+});
+
+// --- Video Animations ---
+// Subtle parallax zoom effect on the video
+tl.to(video, {
+  scale: 1.1, // Zooms in by 10%
+  ease: "none" // Linear zoom
+}, 0); // Starts at the beginning of the timeline
+
+// --- Text Animations ---
+// Message 1: "Ahmed Rayen" (and "View Work" button) - fades out and moves up
+tl.to(msg1, {
+  opacity: 0,
+  yPercent: -50, // Moves up by 50% of its own height
+  ease: "power1.out",
+  pointerEvents: "none"
+}, 0.2); // Fades out between 20% and 30% of the scroll timeline
+
+// Message 2: "Data Science Engineer" - fades in, stays, then fades out
+tl.fromTo(msg2, {
+  opacity: 0,
+  yPercent: 20 // Starts slightly below center
+}, {
+  opacity: 1,
+  yPercent: 0, // Moves to center
+  ease: "power1.out",
+  pointerEvents: "auto"
+}, 0.3); // Appears at 30% of the scroll timeline
+
+tl.to(msg2, {
+  opacity: 0,
+  yPercent: -20, // Moves up as it fades out
+  ease: "power1.out",
+  pointerEvents: "none"
+}, 0.5); // Fades out at 50% of the scroll timeline
+
+// Message 3: "SaaS Developer" - fades in, stays, then fades out
+tl.fromTo(msg3, {
+  opacity: 0,
+  yPercent: 20
+}, {
+  opacity: 1,
+  yPercent: 0,
+  ease: "power1.out",
+  pointerEvents: "auto"
+}, 0.6); // Appears at 60% of the scroll timeline
+
+tl.to(msg3, {
+  opacity: 0,
+  yPercent: -20,
+  ease: "power1.out",
+  pointerEvents: "none"
+}, 0.8); // Fades out at 80% of the scroll timeline
+
+// --- Fade-to-Black Transition ---
+// Starts fading in around 85% of the scroll section, fully black at 95%
+tl.to(fadeToBlackOverlay, {
+  opacity: 1,
+  ease: "none"
+}, 0.9); // Starts fading to black at 90% of the scroll timeline
 
 // Dark Mode Toggle
 const themeToggleButton = document.getElementById('theme-toggle'); // Assuming a button with this ID

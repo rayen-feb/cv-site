@@ -178,7 +178,7 @@ body {
   width: 90%;
   max-width: 800px;
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); /* Smoother text transitions */
+  /* GSAP will handle opacity and transform transitions */
   color: #ffffff;
   z-index: 10; /* Text is above video and fade overlay */
 }
