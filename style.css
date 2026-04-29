@@ -382,7 +382,47 @@ a:focus-visible {
   transition: var(--transition);
   will-change: transform, opacity;
 }
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
 
+.skill-group {
+  text-align: left;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--apple-gray);
+  box-shadow: var(--apple-shadow);
+  transition: transform 0.4s ease;
+}
+
+.skill-group:hover {
+  transform: translateY(-8px);
+}
+
+.skill-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--apple-text);
+}
+
+.skill-group span {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: white;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+
+.skill-group span:hover {
+  background: var(--apple-blue);
+  color: white;
+  transform: scale(1.05);
+}
 .reveal.active {
   opacity: 1;
   transform: translateY(0);

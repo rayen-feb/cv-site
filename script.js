@@ -89,6 +89,8 @@ const tl = gsap.timeline({
   }
 });
 
+
+
 // --- Video Animations ---
 // Subtle parallax zoom effect on the video
 tl.to(video, {
@@ -147,6 +149,30 @@ tl.to(fadeToBlackOverlay, {
   opacity: 1,
   ease: "none"
 }, 0.9); // Starts fading to black at 90% of the scroll timeline
+
+gsap.from(".skill-group", {
+  opacity: 0,
+  y: 50,
+  stagger: 0.2,
+  duration: 1,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: "#skills",
+    start: "top 80%"
+  }
+});
+
+gsap.from(".skill-group span", {
+  opacity: 0,
+  scale: 0.8,
+  stagger: 0.05,
+  duration: 0.6,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: "#skills",
+    start: "top 80%"
+  }
+});
 
 // Dark Mode Toggle
 const themeToggleButton = document.getElementById('theme-toggle'); // Assuming a button with this ID
