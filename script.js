@@ -235,11 +235,15 @@ document.querySelectorAll(".project").forEach(card => {
 
 document.querySelectorAll('.read-more-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const p = btn.previousElementSibling;
-    p.classList.toggle('expanded');
-    btn.textContent = p.classList.contains('expanded') ? 'Read Less' : 'Read More';
+    const description = btn.previousElementSibling;
+    const isExpanded = description.classList.toggle('expanded');
+    
+    btn.textContent = isExpanded ? 'Read Less' : 'Read More';
+    
     // Refresh ScrollTrigger because the page height changed
-    ScrollTrigger.refresh();
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 300); // Wait for CSS transition to finish
   });
 });
 
