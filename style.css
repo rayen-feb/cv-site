@@ -114,7 +114,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 1;
+  z-index: 100; /* Ensure sticky container is above regular content blocks */
   background: #000;
 }
 
@@ -122,12 +122,26 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; /* Fill the entire width of its parent (sticky-container) */
+  height: 100%; /* Fill the entire height of its parent (sticky-container) */
   object-fit: cover;
-  z-index: 1;
+  z-index: 0; /* Video is behind text, but in front of sticky-container's background */
   filter: brightness(0.5);
   will-change: currentTime;
+  transition: transform var(--transition); /* Add transition for zoom effect */
+}
+
+.fade-to-black-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  z-index: 1; /* Above video, below text */
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
 }
 
 .scroll-fade {
@@ -139,9 +153,9 @@ body {
   width: 90%;
   max-width: 800px;
   pointer-events: none;
-  transition: opacity 0.3s ease-out; /* Slightly adjusted for smoother text fades */
+  transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); /* Smoother text transitions */
   color: #ffffff;
-  z-index: 2;
+  z-index: 10; /* Text is above video and fade overlay */
 }
 
 .scroll-fade h1 {
