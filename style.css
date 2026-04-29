@@ -301,3 +301,28 @@ footer {
   padding: 20px;
   border-radius: 15px;
 }
+.project-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.project-badges span {
+  background: var(--apple-gray);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid var(--apple-border);
+}
+
+.project-links {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.project-links .cta-button {
+  font-size: 0.85rem;
+  padding: 8px 18px;
+}
