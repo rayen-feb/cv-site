@@ -190,6 +190,20 @@ gsap.from(".project", {
     start: "top 80%"
   }
 });
+/*=======================
+====  card  =============
+========================*/
+gsap.from(".skill-card", {
+  opacity: 0,
+  y: 60,
+  duration: 1,
+  stagger: 0.12,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "#skills",
+    start: "top 80%"
+  }
+});
 
 /********************* */
 
@@ -216,6 +230,16 @@ document.querySelectorAll(".project").forEach(card => {
 
   card.addEventListener("mouseleave", () => {
     card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
+  });
+});
+
+document.querySelectorAll('.read-more-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const p = btn.previousElementSibling;
+    p.classList.toggle('expanded');
+    btn.textContent = p.classList.contains('expanded') ? 'Read Less' : 'Read More';
+    // Refresh ScrollTrigger because the page height changed
+    ScrollTrigger.refresh();
   });
 });
 
