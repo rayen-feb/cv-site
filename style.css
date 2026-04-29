@@ -221,21 +221,26 @@ body {
   height: 20px;
   stroke: var(--apple-blue);
   flex-shrink: 0;
-}
-.skill-card {
+}.skill-card {
   background: var(--apple-bg);
   border: 1px solid var(--apple-border);
   border-radius: 20px;
   padding: 25px;
   box-shadow: var(--apple-shadow);
-
   transition: var(--transition);
-}
 
+  height: 100%;              /* IMPORTANT */
+  display: flex;
+  flex-direction: column;
+}
+[data-theme="dark"] .skill-card {
+  background: var(--apple-gray);
+  opacity: 1; /* REMOVE transparency issues */
+}
 .skill-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
-
 /* Title */
 
 
@@ -244,6 +249,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: auto; /* pushes tags nicely down */
 }
 
 
