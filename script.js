@@ -24,9 +24,11 @@ const msg2 = document.getElementById('msg2');
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
-// Variables for smoothing the video scrubbing
-let currentVideoTime = 0; // This will be the smoothed time the video is currently at
-const easingFactor = 0.15; // Increased for better responsiveness, controls how quickly the video catches up to the scroll
+// --- Optimization State ---
+let targetFraction = 0;    // Where the scroll is actually at
+let currentFraction = 0;   // Where the animation currently is (smoothed)
+let currentVideoTime = 0; 
+const easingFactor = 0.08; // Lower = smoother/heavier feel (Apple-like)
 
 // Linear interpolation function for smoothing values
 function lerp(start, end, amt) {
@@ -45,25 +47,31 @@ function getScrollFraction() {
 }
 
 function updateVideoFrame() {
-  const scrollFraction = getScrollFraction();
+  // 1. Update target based on current scroll position
+  targetFraction = getScrollFraction();
+  
+  // 2. Interpolate current position toward target for smoothing
+  // This allows the video to "glide" into place even after scrolling stops
+  currentFraction = lerp(currentFraction, targetFraction, easingFactor);
 
-  // Scrub video - apply smoothing
-  // Ensure video metadata is loaded and duration is valid before attempting to scrub
+  // 3. Scrub Video
   if (video.readyState >= 2 && video.duration && !isNaN(video.duration)) {
-    const targetVideoTime = video.duration * scrollFraction; // Calculate the ideal video time based on scroll
-    // Smoothly interpolate currentVideoTime towards the targetVideoTime based on scroll
+    const targetVideoTime = video.duration * currentFraction;
+    
+    // Only update currentTime if change is significant to reduce CPU/GPU churn
+    // Most monitors refresh at 60Hz, so we don't need micro-second precision
     currentVideoTime = lerp(currentVideoTime, targetVideoTime, easingFactor);
     video.currentTime = currentVideoTime;
 
-    // 6. Optional: Add subtle zoom-in effect on video while scrolling
-    // Video scales from 1 to 1.1 (10% zoom) over the scroll duration
-    video.style.transform = `scale(${1 + scrollFraction * 0.1})`;
+    // Subtle parallax zoom effect
+    video.style.transform = `scale(${1 + currentFraction * 0.1})`;
   }
 
   // Update Progress Bar
-  progressBar.style.width = `${scrollFraction * 100}%`;
+  progressBar.style.width = `${currentFraction * 100}%`;
 
   // Define scroll ranges for each section (Start, End)
+  // Values are normalized (0.0 to 1.0)
   const ranges = [
     { el: msg1, start: 0.0, end: 0.45 },
     { el: msg2, start: 0.55, end: 1.0 }
@@ -71,15 +79,17 @@ function updateVideoFrame() {
 
   ranges.forEach((range) => {
     const { el, start, end } = range;
-    if (scrollFraction >= start && scrollFraction <= end) {
+    if (currentFraction >= start && currentFraction <= end) {
       // Calculate internal fade
       const duration = end - start;
-      const localProgress = (scrollFraction - start) / duration;
+      const localProgress = (currentFraction - start) / duration;
       
       // Fade in/out logic
       const opacity = localProgress < 0.2 ? localProgress * 5 : (localProgress > 0.8 ? (1 - localProgress) * 5 : 1);
       el.style.opacity = Math.max(0, Math.min(1, opacity));
-      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 80}px))`;
+      
+      // Smoother Parallax: subtle vertical movement linked to smoothed progress
+      el.style.transform = `translate(-50%, calc(-50% - ${(localProgress - 0.5) * 100}px))`;
       el.style.pointerEvents = "auto";
     } else {
       el.style.opacity = 0;
@@ -90,23 +100,24 @@ function updateVideoFrame() {
   // Fade-to-black transition at the very end
   const fadeStart = 0.85;
   const fadeEnd = 0.95;
-  if (scrollFraction > fadeStart) {
-    const fadeProgress = Math.min(1, (scrollFraction - fadeStart) / (fadeEnd - fadeStart));
+  if (currentFraction > fadeStart) {
+    const fadeProgress = Math.min(1, (currentFraction - fadeStart) / (fadeEnd - fadeStart));
     fadeToBlackOverlay.style.opacity = fadeProgress;
   } else {
     fadeToBlackOverlay.style.opacity = 0;
   }
+
+  // Keep the animation loop running
+  requestAnimationFrame(updateVideoFrame);
 }
 
 // Function to initialize video time based on current scroll position
 function initializeVideoTime() {
   if (video.duration && !isNaN(video.duration)) {
-    // console.log('Initializing video time...'); // Debugging
-    const scrollFraction = getScrollFraction();
-    currentVideoTime = video.duration * scrollFraction; // Set initial smoothed time
+    targetFraction = getScrollFraction();
+    currentFraction = targetFraction; 
+    currentVideoTime = video.duration * currentFraction;
     video.currentTime = currentVideoTime; // Set video to initial frame
-    updateVideoFrame(); // Call once to ensure initial state is correct
-    // console.log(`Video initialized to ${currentVideoTime.toFixed(2)}s based on scroll fraction ${scrollFraction.toFixed(2)}`); // Debugging
   }
 }
 
@@ -121,10 +132,8 @@ if (video.readyState >= 1) { // HAVE_METADATA or higher
   initializeVideoTime(); // Attempt immediate initialization if video is already somewhat ready
 }
 
-window.addEventListener('scroll', () => {
-  // Request animation frame for smooth syncing with browser paint
-  requestAnimationFrame(updateVideoFrame);
-});
+// Start the continuous render loop
+requestAnimationFrame(updateVideoFrame);
 
 // Dark Mode Toggle
 const themeToggleButton = document.getElementById('theme-toggle'); // Assuming a button with this ID
