@@ -27,8 +27,10 @@ let lastScrollTop = 0;
 
 function updateVideoFrame() {
   const containerRect = scrollContainer.getBoundingClientRect();
-  const containerHeight = scrollContainer.offsetHeight - window.innerHeight;
-  const relativeScroll = Math.abs(containerRect.top);
+  const containerHeight = scrollContainer.scrollHeight - window.innerHeight;
+  
+  // How far we have scrolled into the section (0 when at top)
+  const relativeScroll = -containerRect.top;
   
   // Calculate scroll fraction (0 to 1)
   let fraction = relativeScroll / containerHeight;
@@ -45,12 +47,13 @@ function updateVideoFrame() {
   // Text Fade Logic
   // msg1 fades out between 0.1 and 0.3
   msg1.style.opacity = fraction < 0.3 ? 1 - (fraction * 4) : 0;
-  msg1.style.transform = `translateY(${fraction * -50}px)`;
+  msg1.style.transform = `translateY(${fraction * -100}px)`;
   msg1.style.pointerEvents = fraction < 0.25 ? "auto" : "none";
 
-  // msg2 fades in between 0.4 and 0.6, then out at 0.8
-  if (fraction > 0.35 && fraction < 0.8) {
-    msg2.style.opacity = 1;
+  // msg2 fades in/out based on specific scroll points
+  if (fraction > 0.4 && fraction < 0.75) {
+    const subFraction = (fraction - 0.4) / 0.35;
+    msg2.style.opacity = subFraction < 0.8 ? 1 : 1 - (subFraction - 0.8) * 5;
     msg2.style.transform = `translateY(0)`;
   } else {
     msg2.style.opacity = 0;
@@ -58,11 +61,19 @@ function updateVideoFrame() {
   }
 }
 
-// Initialize video frame on load
-video.addEventListener('loadedmetadata', updateVideoFrame);
+// Ensure video is ready for scrubbing
+video.addEventListener('loadedmetadata', () => {
+  // Briefly "play" and "pause" to initialize the video stream for seeking
+  video.play().then(() => {
+    video.pause();
+    updateVideoFrame();
+  });
+});
 
-// Fallback for immediate call in case metadata is already cached
-if (video.readyState >= 1) updateVideoFrame();
+// Initialize if metadata is already there
+if (video.readyState >= 1) {
+    updateVideoFrame();
+}
 
 window.addEventListener('scroll', () => {
   requestAnimationFrame(updateVideoFrame);
