@@ -27,13 +27,13 @@ let lastScrollTop = 0;
 
 function updateVideoFrame() {
   const containerRect = scrollContainer.getBoundingClientRect();
-  const containerHeight = scrollContainer.scrollHeight - window.innerHeight;
+  const totalHeight = scrollContainer.offsetHeight - window.innerHeight;
   
   // How far we have scrolled into the section (0 when at top)
-  const relativeScroll = -containerRect.top;
+  let relativeScroll = -containerRect.top;
   
   // Calculate scroll fraction (0 to 1)
-  let fraction = relativeScroll / containerHeight;
+  let fraction = relativeScroll / totalHeight;
   fraction = Math.max(0, Math.min(fraction, 1));
 
   // Scrub video
@@ -45,19 +45,19 @@ function updateVideoFrame() {
   progressBar.style.width = `${fraction * 100}%`;
 
   // Text Fade Logic
-  // msg1 fades out between 0.1 and 0.3
-  msg1.style.opacity = fraction < 0.3 ? 1 - (fraction * 4) : 0;
-  msg1.style.transform = `translateY(${fraction * -100}px)`;
+  // msg1 starts visible, fades out as we scroll
+  msg1.style.opacity = fraction < 0.2 ? 1 : Math.max(0, 1 - (fraction - 0.2) * 5);
+  msg1.style.transform = `translate(-50%, calc(-50% - ${fraction * 50}px))`;
   msg1.style.pointerEvents = fraction < 0.25 ? "auto" : "none";
 
-  // msg2 fades in/out based on specific scroll points
-  if (fraction > 0.4 && fraction < 0.75) {
-    const subFraction = (fraction - 0.4) / 0.35;
-    msg2.style.opacity = subFraction < 0.8 ? 1 : 1 - (subFraction - 0.8) * 5;
-    msg2.style.transform = `translateY(0)`;
+  // msg2 appears in the middle of the scroll
+  if (fraction > 0.4 && fraction < 0.8) {
+    const subOpacity = Math.min(1, (fraction - 0.4) * 5) * Math.min(1, (0.8 - fraction) * 5);
+    msg2.style.opacity = subOpacity;
+    msg2.style.transform = `translate(-50%, -50%)`;
   } else {
     msg2.style.opacity = 0;
-    msg2.style.transform = `translateY(20px)`;
+    msg2.style.transform = `translate(-50%, calc(-50% + 20px))`;
   }
 }
 
