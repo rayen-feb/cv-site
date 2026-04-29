@@ -82,6 +82,7 @@ body {
   font-size: 0.9rem;
   opacity: 0.8;
   transition: opacity 0.3s, color var(--transition); /* Add color transition for dark mode */
+  position: relative;
   outline: none; /* Remove default outline */
 }
 
@@ -91,14 +92,38 @@ body {
   border-radius: 2px;
 }
 
+/* Fade all links when the container is hovered */
+.nav-links:hover a {
+  opacity: 0.4;
+}
+
+/* Keep the specifically hovered link at full opacity */
 .nav-links a:hover {
   opacity: 1;
   text-decoration: none;
 }
 
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--apple-blue);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 /* SCROLL VIDEO SECTION (Apple-Style) */
 .scroll-section {
-  height: 400vh; /* Minimized scroll height for intro */
+  height: 200vh; /* Shorter scroll height for faster video scrubbing */
   background: #000; /* Fallback for bottom of page */
   position: relative;
   width: 100%;
