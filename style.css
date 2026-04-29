@@ -177,6 +177,16 @@ h2 {
   margin: 0 auto;
 }
 
+/* PROFILE PICTURE */
+.profile-picture {
+  width: 150px; /* Adjust size as needed */
+  height: 150px;
+  border-radius: 50%; /* Makes it circular */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  margin-bottom: 40px; /* Spacing below the picture */
+  box-shadow: var(--apple-shadow); /* Subtle shadow for depth */
+}
+
 /* SKILLS */
 .skills {
   display: flex;
