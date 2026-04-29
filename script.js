@@ -38,6 +38,32 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('resize', initReadMoreVisibility);
+// =========================
+// EXPERIENCE ANIMATION
+// =========================
+
+gsap.utils.toArray(".experience-card").forEach((card, i) => {
+  gsap.fromTo(card,
+    {
+      opacity: 0,
+      y: 80,
+      scale: 0.95
+    },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1,
+      ease: "power3.out",
+      delay: i * 0.1,
+      scrollTrigger: {
+        trigger: card,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+});
 
 /* =========================
    2. HERO SCROLL SYSTEM
