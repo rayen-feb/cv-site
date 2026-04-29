@@ -300,29 +300,38 @@ footer {
   background: var(--apple-bg);
   padding: 20px;
   border-radius: 15px;
+}.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  align-items: stretch; /* KEY FIX */
 }
-.project-badges {
+
+.project {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%; /* force equal height behavior */
+  min-height: 520px; /* fixed visual consistency */
 }
 
-.project-badges span {
-  background: var(--apple-gray);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  border: 1px solid var(--apple-border);
+.project-image {
+  height: 180px;
+  flex-shrink: 0;
 }
 
+.project-info {
+  flex: 1; /* takes available space */
+  display: flex;
+  flex-direction: column;
+}
+
+.project-info p {
+  flex: 1; /* pushes buttons to bottom */
+}
+
+/* Force buttons to bottom */
 .project-links {
-  margin-top: 15px;
+  margin-top: auto;
   display: flex;
   gap: 10px;
-}
-
-.project-links .cta-button {
-  font-size: 0.85rem;
-  padding: 8px 18px;
 }
