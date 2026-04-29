@@ -37,7 +37,11 @@ function initReadMoreVisibility() {
 window.addEventListener('load', () => {
   lucide.createIcons(); // Ensure icons are created on load
   initReadMoreVisibility();
-  ScrollTrigger.refresh();
+  
+  // Slight delay to ensure layout is settled before refreshing triggers
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 100);
 });
 
 window.addEventListener('resize', initReadMoreVisibility);
@@ -215,7 +219,7 @@ projectTL.from("#projects h2", { opacity: 0, y: 20, duration: 0.6 })
 const skillTL = gsap.timeline({
   scrollTrigger: {
     trigger: "#skills",
-    start: "top 85%"
+    start: "top 90%" // Trigger slightly earlier for better visibility
   }
 });
 
@@ -329,8 +333,4 @@ document.addEventListener("click", (e) => {
   ) {
     closeModal();
   }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  lucide.createIcons();
 });

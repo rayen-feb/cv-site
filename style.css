@@ -200,17 +200,15 @@ body {
   font-size: 1.1rem;
 }
 
-.skill-card h3 i {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.skill-card h3 svg {
+.skill-card h3 svg,
+.skill-card h3 [data-lucide] {
   width: 22px;
   height: 22px;
   stroke: var(--apple-blue);
+  fill: none;
   stroke-width: 2px;
-  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .skill-card {
