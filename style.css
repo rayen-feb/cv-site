@@ -27,6 +27,7 @@ html {
   scroll-behavior: smooth;
   height: 100%; /* Ensure html takes full height */
   overflow-x: hidden; /* Prevent horizontal scrollbar from 100vw */
+  margin: 0; /* Ensure no default margin */
   /* Explicitly allow vertical scrolling for sticky to work */
   overflow-y: visible; 
 }
@@ -38,6 +39,7 @@ body {
   color: var(--apple-text);
   line-height: 1.6;
   min-height: 100%; /* Ensure body takes at least full height */
+  position: relative; /* Ensure body is a positioning context */
   /* Explicitly allow vertical scrolling for sticky to work */
   overflow-y: visible; 
   text-rendering: optimizeLegibility;
@@ -268,6 +270,10 @@ h2 {
 .project p {
   color: var(--apple-secondary);
   margin: 0;
+}
+
+.experience-item-content {
+  text-align: center;
 }
 
 /* Dark Mode Toggle Button (Conceptual) */
