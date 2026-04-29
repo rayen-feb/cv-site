@@ -37,9 +37,9 @@ function updateVideoFrame() {
   fraction = Math.max(0, Math.min(fraction, 1));
 
   // Scrub video
-  if (video.duration && !isNaN(video.duration)) {
+  if (video.readyState >= 2 && video.duration) {
     // Smoother scrubbing by targeting the exact frame
-    video.currentTime = Math.min(video.duration - 0.1, video.duration * fraction);
+    video.currentTime = video.duration * fraction;
   }
 
   // Update Progress Bar
@@ -55,10 +55,10 @@ function updateVideoFrame() {
   // msg2 appears in the middle of the scroll (between 40% and 80%)
   if (fraction > 0.35 && fraction < 0.85) {
     msg2.style.opacity = Math.min(1, (fraction - 0.35) * 5) * Math.min(1, (0.85 - fraction) * 5);
-    msg2.style.transform = `translate(-50%, calc(-50% - ${ (fraction - 0.6) * 50 }px))`;
+    msg2.style.transform = `translate(-50%, calc(-50% - ${(fraction - 0.6) * 40}px))`;
   } else {
     msg2.style.opacity = 0;
-    msg2.style.transform = `translate(-50%, calc(-50% + 50px))`;
+    msg2.style.transform = `translate(-50%, calc(-50% + 40px))`;
   }
 }
 
@@ -78,6 +78,7 @@ if (video.readyState >= 1) {
 }
 
 window.addEventListener('scroll', () => {
+  // Request animation frame for smooth syncing with browser paint
   requestAnimationFrame(updateVideoFrame);
 });
 
