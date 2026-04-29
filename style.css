@@ -1,4 +1,6 @@
-/* GLOBAL */
+/* =========================
+   GLOBAL DESIGN SYSTEM
+========================= */
 :root {
   --apple-bg: #ffffff;
   --apple-text: #1d1d1f;
@@ -7,395 +9,190 @@
   --apple-secondary: #86868b;
   --apple-border: rgba(0, 0, 0, 0.08);
   --apple-navbar-bg: rgba(255, 255, 255, 0.8);
-  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --apple-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark Mode Variables */
+/* Dark Mode */
 [data-theme="dark"] {
   --apple-bg: #1c1c1e;
   --apple-text: #f5f5f7;
   --apple-gray: #2c2c2e;
-  --apple-blue: #0a84ff; /* Slightly adjusted for dark mode contrast */
+  --apple-blue: #0a84ff;
   --apple-secondary: #98989d;
   --apple-border: rgba(255, 255, 255, 0.1);
   --apple-navbar-bg: rgba(28, 28, 30, 0.8);
   --apple-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* =========================
+   BASE
+========================= */
 html {
   scroll-behavior: smooth;
-  height: 100%; /* Ensure html takes full height */
-  margin: 0; /* Ensure no default margin */
   overflow-x: hidden;
-  /* Ensure overflow-y is not hidden to allow sticky to work */
-  overflow-y: visible;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
   background: var(--apple-bg);
   color: var(--apple-text);
   line-height: 1.6;
-  min-height: 100vh;
-  position: relative; /* Ensure body is a positioning context for absolute children if any */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  overflow-y: visible;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
   background: var(--apple-navbar-bg);
-  backdrop-filter: saturate(180%) blur(16px);
-  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--apple-border);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
-  transition: background var(--transition), border-color var(--transition);
 }
 
 .nav-content {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 1100px;
+  margin: auto;
   display: flex;
   justify-content: space-between;
-  padding: 8px 20px;
-  align-items: center;
+  padding: 10px 20px;
 }
 
 .logo {
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--apple-text) !important;
-  transition: color var(--transition); /* Smooth color transition for dark mode */
+  font-weight: 700;
 }
 
 .nav-links a {
-  margin-left: 25px;
-  color: var(--apple-text); /* Use variable */
-  font-size: 0.9rem;
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--apple-text);
   opacity: 0.8;
-  transition: opacity 0.3s, color var(--transition); /* Add color transition for dark mode */
-  position: relative;
-  outline: none; /* Remove default outline */
+  transition: 0.3s;
 }
 
-.nav-links a:focus-visible { /* Custom focus state for accessibility */
-  outline: 2px solid var(--apple-blue);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Fade all links when the container is hovered */
-.nav-links:hover a {
-  opacity: 0.4;
-}
-
-/* Keep the specifically hovered link at full opacity */
 .nav-links a:hover {
   opacity: 1;
-  text-decoration: none;
+  color: var(--apple-blue);
 }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--apple-blue);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nav-links a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* SCROLL VIDEO SECTION (Apple-Style) */
+/* =========================
+   HERO (APPLE STYLE SCROLL)
+========================= */
 .scroll-section {
-  height: 100vh; /* Even shorter scroll height for a very quick intro */
-  background: #000; /* Fallback for bottom of page */
+  height: 100vh;
   position: relative;
-  width: 100%;
-  display: block;
+  background: black;
 }
 
 .sticky-container {
   position: sticky;
   top: 0;
-  width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  z-index: 100; /* Ensure sticky container is above regular content blocks */
-  background: #000;
 }
 
 .hero-video {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; /* Fill the entire width of its parent (sticky-container) */
-  height: 100%; /* Fill the entire height of its parent (sticky-container) */
-  object-fit: cover;
-  z-index: 0; /* Video is behind text, but in front of sticky-container's background */
-  filter: brightness(0.5);
-  will-change: transform;
-  transition: transform 0.1s linear; /* Shorter transition for smoother scrubbing */
-}
-
-.fade-to-black-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
-  opacity: 0;
-  z-index: 1; /* Above video, below text */
-  pointer-events: none;
-  transition: opacity 0.3s ease-out;
+  object-fit: cover;
+  filter: brightness(0.55) contrast(1.1);
+  transform: scale(1.05);
 }
 
+/* TEXT OVERLAY */
 .scroll-fade {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 90%;
-  max-width: 800px;
-  pointer-events: none;
-  transition: opacity 0.4s ease; 
-  will-change: transform, opacity;
-  color: #ffffff;
-  z-index: 10; /* Text is above video and fade overlay */
+  color: white;
+  transition: 0.5s ease;
 }
 
 .scroll-fade h1 {
-  font-size: clamp(3rem, 10vw, 5.5rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0;
-  color: #fff;
+  font-size: clamp(2.5rem, 6vw, 5rem);
 }
 
 .scroll-fade p {
-  font-size: 1.5rem;
-  opacity: 0.9;
-  margin-top: 20px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8); /* Light secondary text */
+  opacity: 0.8;
+  font-size: 1.2rem;
 }
 
+/* CTA BUTTON */
 .cta-button {
   display: inline-block;
-  margin-top: 30px;
-  padding: 12px 30px;
+  margin-top: 20px;
+  padding: 12px 25px;
   background: var(--apple-blue);
-  color: white !important;
-  border-radius: 980px;
-  font-weight: 600;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+  color: white;
+  border-radius: 999px;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 .cta-button:hover {
   transform: scale(1.05);
-  text-decoration: none;
-  background: #0077ed;
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.4);
 }
 
-.cta-button:focus-visible {
-  outline: 2px solid var(--apple-blue);
-  outline-offset: 2px;
-  border-radius: 980px;
-}
-
-/* BLOCK SECTIONS */
+/* =========================
+   SECTIONS
+========================= */
 .block {
-  width: 90%;
   max-width: 1000px;
-  margin: 160px auto;
-  padding: 0 40px;
-  padding-top: 60px;
-  text-align: center;
-  background: var(--apple-bg);
-  transition: background var(--transition);
-}
-
-h2 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 40px;
-  letter-spacing: -0.01em;
-}
-
-/* TEXT */
-.center {
-  color: var(--apple-secondary);
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-/* PROFILE PICTURE */
-.profile-picture {
-  width: 150px; /* Adjust size as needed */
-  height: 150px;
-  border-radius: 50%; /* Makes it circular */
-  object-fit: cover; /* Ensures the image covers the area without distortion */
-  margin-bottom: 40px; /* Spacing below the picture */
-  box-shadow: var(--apple-shadow); /* Subtle shadow for depth */
-  transition: var(--transition);
-}
-
-.profile-picture:hover {
-  transform: scale(1.05);
-}
-
-/* SKILLS */
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.skills span {
-  background: var(--apple-gray);
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  transition: var(--transition);
-  cursor: default;
-  color: var(--apple-text);
-  border: 1px solid var(--apple-border);
-}
-
-.skills span:hover {
-  background: #e8e8ed;
-  transform: translateY(-2px);
-  box-shadow: var(--apple-shadow);
-}
-
-[data-theme="dark"] .skills span:hover {
-    background: #3a3a3c; /* Dark mode hover for skills */
-}
-
-/* PROJECT CARDS */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 50px;
-}
-
-.project {
-  background: var(--apple-bg);
-  border-radius: 20px;
-  overflow: hidden;
-  text-align: left;
-  transition: var(--transition);
-  box-shadow: var(--apple-shadow);
-  border: 1px solid var(--apple-border);
-  color: var(--apple-text);
-}
-
-.project:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-}
-
-.project-image {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-}
-
-.project-info {
-  padding: 30px;
-}
-
-.project h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.4rem;
-  color: var(--apple-text);
-}
-
-.project p {
-  color: var(--apple-secondary);
-  margin: 0;
-}
-
-.experience-item-content {
-  text-align: center;
+  margin: 120px auto;
   padding: 20px;
+  text-align: center;
 }
 
-/* Dark Mode Toggle Button (Conceptual) */
-.dark-mode-toggle {
-  background: var(--apple-gray);
-  color: var(--apple-text);
-  border: 1px solid var(--apple-border);
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-/* LINKS */
-a {
-  color: var(--apple-blue);
-  text-decoration: none;
-  transition: color var(--transition);
-  outline: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:focus-visible {
-  outline: 2px solid var(--apple-blue);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* ANIMATIONS */
+/* =========================
+   REVEAL ANIMATION
+========================= */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: var(--transition);
-  will-change: transform, opacity;
+  transform: translateY(50px);
+  transition: 1s ease;
 }
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   PROFILE
+========================= */
+.profile-picture {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--apple-shadow);
+}
+
+/* =========================
+   SKILLS (DATA SCIENCE STYLE)
+========================= */
 .skills {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  margin-top: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .skill-group {
-  text-align: left;
-  padding: 20px;
-  border-radius: 20px;
   background: var(--apple-gray);
+  padding: 20px;
+  border-radius: 18px;
   box-shadow: var(--apple-shadow);
-  transition: transform 0.4s ease;
+  transition: 0.4s;
+  text-align: left;
 }
 
 .skill-group:hover {
@@ -403,16 +200,14 @@ a:focus-visible {
 }
 
 .skill-group h3 {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-  color: var(--apple-text);
+  margin-bottom: 10px;
 }
 
 .skill-group span {
   display: inline-block;
   margin: 5px;
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
   background: white;
   font-size: 0.85rem;
   transition: 0.3s;
@@ -421,131 +216,88 @@ a:focus-visible {
 .skill-group span:hover {
   background: var(--apple-blue);
   color: white;
-  transform: scale(1.05);
-}
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 80px 40px;
-  color: var(--apple-secondary);
-  font-size: 0.9rem;
-  border-top: 1px solid var(--apple-border);
-  background: var(--apple-bg);
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
-}
-
-.footer-content {
-  max-width: 1000px;
-  margin: 0 auto;
+/* =========================
+   PROJECTS
+========================= */
+.project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.project {
+  background: var(--apple-bg);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--apple-shadow);
+  transition: 0.4s;
+}
+
+.project:hover {
+  transform: translateY(-10px);
+}
+
+.project-image {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+}
+
+.project-info {
+  padding: 20px;
   text-align: left;
 }
 
-.footer-section h4 {
-  color: var(--apple-text);
-  font-size: 1rem;
-  margin-bottom: 15px;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-section ul li {
+.project h3 {
   margin-bottom: 10px;
 }
 
-.footer-section ul li a {
-  color: var(--apple-secondary);
-  font-size: 0.85rem;
-  text-decoration: none;
+/* =========================
+   EXPERIENCE
+========================= */
+.experience-item-content {
+  padding: 20px;
+  background: var(--apple-gray);
+  border-radius: 15px;
 }
 
-.footer-section ul li a:hover {
+/* =========================
+   CONTACT
+========================= */
+a {
   color: var(--apple-blue);
-  text-decoration: underline;
 }
 
-.footer-bottom {
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--apple-border);
-  font-size: 0.8rem;
-  color: var(--apple-secondary);
+/* =========================
+   FOOTER
+========================= */
+footer {
   text-align: center;
+  padding: 50px;
+  border-top: 1px solid var(--apple-border);
+  color: var(--apple-secondary);
 }
 
-/* MODAL STYLES (assuming HTML structure for modal) */
+/* =========================
+   MODAL
+========================= */
 .modal {
   position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(10px);
-  display: none; /* Changed to none by default, flex when active */
+  inset: 0;
+  display: none;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  background: rgba(0,0,0,0.6);
 }
 
 .modal.active {
   display: flex;
-  opacity: 1;
 }
 
 .modal-content {
-  position: relative;
-  background-color: var(--apple-bg);
-  margin: auto;
+  background: var(--apple-bg);
   padding: 20px;
   border-radius: 15px;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  transform: translateY(20px);
-  transition: transform 0.3s ease-in-out;
-}
-
-.modal.active .modal-content {
-  transform: translateY(0);
-}
-
-.modal-close {
-  color: var(--apple-secondary);
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.modal-close:hover,
-.modal-close:focus {
-  color: var(--apple-text);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 10px;
 }
