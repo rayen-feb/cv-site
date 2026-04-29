@@ -21,10 +21,25 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+/* Function to show "Read More" only if text overflows 4 lines */
+function initReadMoreVisibility() {
+  document.querySelectorAll('.project-info').forEach(info => {
+    const p = info.querySelector('p');
+    const btn = info.querySelector('.read-more-btn');
+    if (p && btn) {
+      // If scrollHeight is greater than clientHeight, the text is being clamped
+      const isOverflowing = p.scrollHeight > p.clientHeight;
+      btn.style.display = isOverflowing ? 'inline-block' : 'none';
+    }
+  });
+}
+
 window.addEventListener('load', () => {
   ScrollTrigger.refresh();
+  initReadMoreVisibility();
 });
 
+window.addEventListener('resize', initReadMoreVisibility);
 
 /* =========================
    2. HERO SCROLL SYSTEM

@@ -352,13 +352,14 @@ footer {
 }
 
 .read-more-btn {
-  background: var(--apple-gray);
-  border: 1px solid var(--apple-border);
+  display: none; /* Hidden by default, JS will show if text overflows */
+  background: rgba(0, 113, 227, 0.05);
+  border: 1px solid rgba(0, 113, 227, 0.1);
   color: var(--apple-blue);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 5px 15px;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
   transition: var(--transition);
   cursor: pointer;
   margin-bottom: 15px;
@@ -366,9 +367,9 @@ footer {
 }
 
 .read-more-btn:hover {
-  background: var(--apple-blue);
+  background: rgba(0, 113, 227, 0.1);
   color: #fff;
-  transform: scale(1.05);
+  background: var(--apple-blue);
 }
 
 /* Force buttons to bottom */
