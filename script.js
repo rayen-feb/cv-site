@@ -24,6 +24,7 @@ const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
 const msg2 = document.getElementById('msg2');
+const msg3 = document.getElementById('msg3'); // Added missing declaration
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
@@ -41,8 +42,10 @@ function lerp(start, end, amt) {
 // Function to initialize video time based on current scroll position
 function initializeVideoTime() {
   if (video.duration && !isNaN(video.duration)) {
-    // Set initial video time to 0 to ensure it starts at the beginning
-    video.currentTime = 0;
+    // Sync video with current scroll position immediately on load
+    const initialProgress = ScrollTrigger.getById("heroScroll")?.progress || 0;
+    video.currentTime = video.duration * initialProgress;
+    currentVideoTime = video.currentTime;
   }
 }
 
@@ -60,6 +63,7 @@ if (video.readyState >= 1) { // HAVE_METADATA or higher
 // --- GSAP ScrollTrigger Setup ---
 const tl = gsap.timeline({
   scrollTrigger: {
+    id: "heroScroll",
     trigger: scrollContainer, // The element that triggers the scroll animation
     start: "top top",         // When the top of the trigger hits the top of the viewport
     end: "+=300%",            // Pin for 300% of the viewport height (adjust this value to control scroll duration)
