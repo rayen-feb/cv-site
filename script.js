@@ -37,8 +37,9 @@ function updateVideoFrame() {
   fraction = Math.max(0, Math.min(fraction, 1));
 
   // Scrub video
-  if (video.duration) {
-    video.currentTime = video.duration * fraction;
+  if (video.duration && !isNaN(video.duration)) {
+    // Smoother scrubbing by targeting the exact frame
+    video.currentTime = Math.min(video.duration - 0.1, video.duration * fraction);
   }
 
   // Update Progress Bar
@@ -54,7 +55,7 @@ function updateVideoFrame() {
   // msg2 appears in the middle of the scroll (between 40% and 80%)
   if (fraction > 0.35 && fraction < 0.85) {
     msg2.style.opacity = Math.min(1, (fraction - 0.35) * 5) * Math.min(1, (0.85 - fraction) * 5);
-    msg2.style.transform = `translate(-50%, -50%)`;
+    msg2.style.transform = `translate(-50%, calc(-50% - ${ (fraction - 0.6) * 50 }px))`;
   } else {
     msg2.style.opacity = 0;
     msg2.style.transform = `translate(-50%, calc(-50% + 50px))`;
@@ -63,11 +64,12 @@ function updateVideoFrame() {
 
 // Ensure video is ready for scrubbing
 video.addEventListener('loadedmetadata', () => {
-  // Briefly "play" and "pause" to initialize the video stream for seeking
-  video.play().then(() => {
-    video.pause();
-    updateVideoFrame();
-  });
+  updateVideoFrame();
+});
+
+// Force update on canplay to ensure first frame is visible
+video.addEventListener('canplay', () => {
+  updateVideoFrame();
 });
 
 // Initialize if metadata is already there
