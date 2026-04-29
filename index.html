@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ahmed Rayen - Data Science Engineer & SaaS Developer Portfolio">
+  <title>Ahmed Rayen | Data Science & Engineering</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- GSAP Core and ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-content">
+    <a href="#" class="logo">AR</a>
+    <div class="nav-links">
+      <a href="#summary">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">🌓</button>
+    </div>
+  </div>
+</nav>
+
+<section class="scroll-section" id="hero-scroll">
+  <div class="sticky-container">
+    <video id="v0" preload="auto" muted playsinline class="hero-video" style="background: #000;">
+      <source src="images/earth.mp4" type="video/mp4">
+    </video>
+    <div class="scroll-progress-bar"></div>
+    <div class="scroll-fade" id="msg1">
+      <h1>Ahmed Rayen</h1>
+      <p>Data Science Engineer</p>
+      <a href="#projects" class="cta-button">View Work</a>
+    </div>
+    <div class="scroll-fade" id="msg2" style="opacity: 0;">
+      <h1>SaaS Developer</h1>
+      <p>Building scalable data-driven solutions.</p>
+    </div>
+    <div class="scroll-fade" id="msg3" style="opacity: 0;">
+      <h1>AI Integration</h1>
+      <p>Custom ML pipelines for modern enterprises.</p>
+    </div>
+    <div class="fade-to-black-overlay"></div>
+  </div>
+</section>
+
+<section id="summary" class="block reveal">
+  <img src="images/profile.jpg" alt="Ahmed Rayen Profile Picture" class="profile-picture">
+  <h2>Career Summary</h2>
+  <p class="center">
+    Passionate about data science, I apply statistical modeling, machine learning, and visualization 
+    to solve real-world problems. From cancer detection to financial forecasting, I build data-driven solutions that scale.
+  </p>
+</section>
+
+<section id="skills" class="block reveal">
+  <h2>Core Skills</h2>
+  <div class="skills">
+    <span>Python</span><span>R</span><span>SQL</span>
+    <span>Flask</span><span>SQLAlchemy</span>
+    <span>TensorFlow</span><span>PyTorch</span><span>Scikit-Learn</span>
+    <span>Power BI</span><span>Tableau</span>
+    <span>Docker</span><span>AWS/Cloud</span>
+  </div>
+</section>
+
+<section id="projects" class="block reveal">
+  <h2>Featured Projects</h2>
+  <div class="project-grid">
+    <div class="project">
+      <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1773332611522-06b86b48cbf1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+      <div class="project-info">
+        <h3>Soil Fertilization Improvement</h3>
+        <p>ML dashboard evaluating soil fertility using Random Forest and interactive visualizations.</p>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800');"></div>
+      <div class="project-info">
+        <h3>FactuScan (SaaS OCR)</h3>
+        <p>SaaS platform for automated invoice extraction using PaddleOCR and Flask.</p>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800');"></div>
+      <div class="project-info">
+        <h3>Cancer Detection</h3>
+        <p>Deep learning classification models to detect medical patterns from high-resolution datasets.</p>
+      </div>
+    </div>
+    <div class="project">
+      <div class="project-image" style="background-image: url('https://www.letour.fr/img/global/default-card.jpg');"></div>
+      <div class="project-info">
+        <h3>Tour de France ML</h3>
+        <p>Predictive performance analysis for professional cycling using advanced statistics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="block reveal">
+  <h2>Experience</h2>
+  <div class="project">
+    <div class="experience-item-content">
+      <h3>Freelance Data Scientist</h3>
+      <p>Building scalable SaaS platforms and custom ML pipelines for global clients.</p>
+    </div>
+  </div>
+  <div class="project">
+    <div class="experience-item-content">
+      <h3>Freelancer at IGASIT (Tunisia/France)</h3>
+      <p>Financial data analysis and cloud-based IT solutions for enterprise-level organizations.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="block reveal">
+  <h2>Contact</h2>
+  <p class="center">
+    Email: <a href="mailto:arayen138@gmail.com">arayen138@gmail.com</a><br>
+    GitHub: <a href="https://github.com/rayen-feb">rayen-feb</a><br>
+    LinkedIn: <a href="https://www.linkedin.com/feed/">linkedin.com</a>
+  </p>
+</section>
+<!-- Modal Structure for Project Details/Videos -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <video id="modalVideo" class="modal-video" controls></video>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Ahmed Rayen. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
