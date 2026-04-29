@@ -1,5 +1,3 @@
-gsap.registerPlugin(ScrollTrigger);
-
 /* =========================
    1. REVEAL ANIMATION
 ========================= */
@@ -135,8 +133,6 @@ video.addEventListener('loadedmetadata', () => {
 
 
 
-gsap.registerPlugin(ScrollTrigger);
-
 gsap.utils.toArray(".case-block").forEach((block, i) => {
   gsap.fromTo(block,
     {
@@ -156,8 +152,6 @@ gsap.utils.toArray(".case-block").forEach((block, i) => {
     }
   );
 });
-
-gsap.registerPlugin(ScrollTrigger);
 
 // HERO TIMELINE (Apple cinematic intro)
 const heroTL = gsap.timeline({
@@ -191,34 +185,40 @@ heroTL.to(".fade-to-black-overlay", {
 }, 0.6);
 
 /* cards */
+const projectTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#projects",
+    start: "top 85%"
+  }
+});
 
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.from(".project", {
+projectTL.from("#projects h2", { opacity: 0, y: 20, duration: 0.6 })
+  .from(".project", {
   opacity: 0,
   y: 80,
   duration: 1,
   stagger: 0.15,
-  ease: "power3.out",
-  scrollTrigger: {
-    trigger: "#projects",
-    start: "top 80%"
-  }
-});
+  ease: "power3.out"
+}, "-=0.4");
+
 /*=======================
 ====  card  =============
 ========================*/
-gsap.from(".skill-card", {
+const skillTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#skills",
+    start: "top 85%"
+  }
+});
+
+skillTL.from("#skills h2", { opacity: 0, y: 20, duration: 0.6 })
+  .from(".skill-card", {
   opacity: 0,
   y: 60,
   duration: 1,
   stagger: 0.12,
-  ease: "power3.out",
-  scrollTrigger: {
-    trigger: "#skills",
-    start: "top 80%"
-  }
-});
+  ease: "power3.out"
+}, "-=0.4");
 
 /********************* */
 
