@@ -20,7 +20,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
 const msg1 = document.getElementById('msg1');
-const msg2 = document.getElementById('msg2');
 const progressBar = document.querySelector('.scroll-progress-bar');
 const fadeToBlackOverlay = document.querySelector('.fade-to-black-overlay');
 
@@ -73,8 +72,7 @@ function updateVideoFrame() {
   // Define scroll ranges for each section (Start, End)
   // Values are normalized (0.0 to 1.0)
   const ranges = [
-    { el: msg1, start: 0.0, end: 0.45 },
-    { el: msg2, start: 0.55, end: 1.0 }
+    { el: msg1, start: 0.0, end: 0.8 }
   ];
 
   ranges.forEach((range) => {
