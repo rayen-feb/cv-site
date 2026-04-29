@@ -25,7 +25,7 @@ const progressBar = document.querySelector('.scroll-progress-bar');
 
 // Variables for smoothing the video scrubbing
 let currentVideoTime = 0; // This will be the smoothed time the video is currently at
-const easingFactor = 0.1; // Controls how quickly the video catches up to the scroll (0.1 is a good starting point for smoothness)
+const easingFactor = 0.15; // Increased for better responsiveness, controls how quickly the video catches up to the scroll
 
 // Linear interpolation function for smoothing values
 function lerp(start, end, amt) {
@@ -49,7 +49,7 @@ function updateVideoFrame() {
   // Scrub video - apply smoothing
   // Ensure video metadata is loaded and duration is valid before attempting to scrub
   if (video.readyState >= 2 && video.duration && !isNaN(video.duration)) {
-    const targetVideoTime = video.duration * scrollFraction;
+    const targetVideoTime = video.duration * scrollFraction; // Calculate the ideal video time based on scroll
     // Smoothly interpolate currentVideoTime towards the targetVideoTime based on scroll
     currentVideoTime = lerp(currentVideoTime, targetVideoTime, easingFactor);
     video.currentTime = currentVideoTime;
@@ -90,20 +90,24 @@ function updateVideoFrame() {
 // Function to initialize video time based on current scroll position
 function initializeVideoTime() {
   if (video.duration && !isNaN(video.duration)) {
+    // console.log('Initializing video time...'); // Debugging
     const scrollFraction = getScrollFraction();
     currentVideoTime = video.duration * scrollFraction; // Set initial smoothed time
     video.currentTime = currentVideoTime; // Set video to initial frame
     updateVideoFrame(); // Call once to ensure initial state is correct
+    // console.log(`Video initialized to ${currentVideoTime.toFixed(2)}s based on scroll fraction ${scrollFraction.toFixed(2)}`); // Debugging
   }
 }
 
 // Ensure video is ready for scrubbing by listening to metadata and canplay events
-video.addEventListener('loadedmetadata', initializeVideoTime);
-video.addEventListener('canplay', initializeVideoTime);
+// Use 'canplaythrough' for maximum readiness before scrubbing starts, as 'canplay' might not be enough for smooth seeking
+video.addEventListener('loadedmetadata', initializeVideoTime); // When duration is known
+video.addEventListener('canplay', initializeVideoTime); // When enough data to play from current position
+video.addEventListener('canplaythrough', initializeVideoTime); // When browser estimates it can play to the end without interruption
 
 // Initialize if metadata is already there (e.g., from cache or fast loading)
 if (video.readyState >= 1) { // HAVE_METADATA or higher
-  initializeVideoTime();
+  initializeVideoTime(); // Attempt immediate initialization if video is already somewhat ready
 }
 
 window.addEventListener('scroll', () => {
