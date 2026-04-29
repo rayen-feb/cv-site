@@ -1,3 +1,5 @@
+gsap.registerPlugin(ScrollTrigger);
+
 /* =========================
    1. REVEAL ANIMATION
 ========================= */
@@ -84,7 +86,7 @@ const lerp = (a, b, n) => a + (b - a) * n;
 
 video.addEventListener('loadedmetadata', () => {
 
-  gsap.timeline({
+  const mainHeroTimeline = gsap.timeline({ // Consolidated hero timeline
     scrollTrigger: {
       id: "heroScroll",
       trigger: scrollContainer,
@@ -92,7 +94,7 @@ video.addEventListener('loadedmetadata', () => {
       end: "+=300%",
       scrub: true,
       pin: true,
-      anticipatePin: 1,
+      anticipatePin: 1, // Helps with smoother pinning
       onUpdate: (self) => {
 
         /* Progress bar */
@@ -107,6 +109,13 @@ video.addEventListener('loadedmetadata', () => {
       }
     }
   })
+
+  // 1. Video cinematic zoom + dark feel (integrated from the previous second heroTL)
+  .to(".hero-video", {
+    scale: 1.25,
+    filter: "brightness(0.3)",
+    ease: "none"
+  }, 0) // Start at the beginning of the timeline
 
   /* Video zoom (Apple feel) */
   .to(video, {
@@ -143,22 +152,25 @@ video.addEventListener('loadedmetadata', () => {
     pointerEvents: "none"
   }, 0.8)
 
-  /* Fade to black */
+  // 3. Smooth fade overlay appears (integrated from the previous second heroTL)
   .to(fadeOverlay, {
-    opacity: 1
-  }, 0.9);
+    opacity: 1,
+    ease: "none"
+  }, 0.9) // Adjusted timing to match original fade to black
 
-});
+  // 2. Text parallax (Apple style depth) - integrated into main timeline
+  .to("#msg1", {
+    y: -120,
+    opacity: 0,
+    scale: 0.95,
+    ease: "power2.out"
+  }, 0); // Start at the beginning of the timeline
 
-
-
+}); // End of video.addEventListener('loadedmetadata')
 
 /* =========================
-   3. DARK MODE
+   CASE BLOCK ANIMATION (Moved from a misplaced section)
 ========================= */
-
-
-
 gsap.utils.toArray(".case-block").forEach((block, i) => {
   gsap.fromTo(block,
     {
@@ -178,37 +190,6 @@ gsap.utils.toArray(".case-block").forEach((block, i) => {
     }
   );
 });
-
-// HERO TIMELINE (Apple cinematic intro)
-const heroTL = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#hero-scroll",
-    start: "top top",
-    end: "bottom top",
-    scrub: true
-  }
-});
-
-// 1. Video cinematic zoom + dark feel
-heroTL.to(".hero-video", {
-  scale: 1.25,
-  filter: "brightness(0.3)",
-  ease: "none"
-}, 0);
-
-// 2. Text parallax (Apple style depth)
-heroTL.to("#msg1", {
-  y: -120,
-  opacity: 0,
-  scale: 0.95,
-  ease: "power2.out"
-}, 0);
-
-// 3. Smooth fade overlay appears
-heroTL.to(".fade-to-black-overlay", {
-  opacity: 1,
-  ease: "none"
-}, 0.6);
 
 /* cards */
 const projectTL = gsap.timeline({
