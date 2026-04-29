@@ -46,6 +46,7 @@ function updateVideoFrame() {
   // msg1 fades out between 0.1 and 0.3
   msg1.style.opacity = fraction < 0.3 ? 1 - (fraction * 4) : 0;
   msg1.style.transform = `translateY(${fraction * -50}px)`;
+  msg1.style.pointerEvents = fraction < 0.25 ? "auto" : "none";
 
   // msg2 fades in between 0.4 and 0.6, then out at 0.8
   if (fraction > 0.35 && fraction < 0.8) {
@@ -55,12 +56,9 @@ function updateVideoFrame() {
     msg2.style.opacity = 0;
     msg2.style.transform = `translateY(20px)`;
   }
-
-  requestAnimationFrame(updateVideoFrame);
 }
 
 window.addEventListener('scroll', () => {
-  // Use requestAnimationFrame for smooth scrubbing
   requestAnimationFrame(updateVideoFrame);
 });
 
