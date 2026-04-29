@@ -185,6 +185,11 @@ h2 {
   object-fit: cover; /* Ensures the image covers the area without distortion */
   margin-bottom: 40px; /* Spacing below the picture */
   box-shadow: var(--apple-shadow); /* Subtle shadow for depth */
+  transition: var(--transition);
+}
+
+.profile-picture:hover {
+  transform: scale(1.05);
 }
 
 /* SKILLS */
