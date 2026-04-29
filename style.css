@@ -311,7 +311,7 @@ footer {
   display: flex;
   flex-direction: column;
   height: 100%; /* force equal height behavior */
-  min-height: 520px; /* fixed visual consistency */
+  min-height: 420px; /* Reduced height for a more compact look */
 }
 
 .project-image {
@@ -327,6 +327,12 @@ footer {
 
 .project-info p {
   flex: 1; /* pushes buttons to bottom */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limits description to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
 }
 
 /* Force buttons to bottom */
