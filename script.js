@@ -329,4 +329,7 @@ document.addEventListener("click", (e) => {
     closeModal();
   }
 });
-lucide.createIcons();
+
+document.addEventListener("DOMContentLoaded", () => {
+  lucide.createIcons();
+});
