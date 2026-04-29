@@ -1,0 +1,412 @@
+/* GLOBAL */
+:root {
+  --apple-bg: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-gray: #f5f5f7;
+  --apple-blue: #0071e3;
+  --apple-secondary: #86868b;
+  --apple-border: rgba(0, 0, 0, 0.08);
+  --apple-navbar-bg: rgba(255, 255, 255, 0.8);
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --apple-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --apple-bg: #1c1c1e;
+  --apple-text: #f5f5f7;
+  --apple-gray: #2c2c2e;
+  --apple-blue: #0a84ff; /* Slightly adjusted for dark mode contrast */
+  --apple-secondary: #98989d;
+  --apple-border: rgba(255, 255, 255, 0.1);
+  --apple-navbar-bg: rgba(28, 28, 30, 0.8);
+  --apple-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--apple-bg);
+  color: var(--apple-text);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--apple-navbar-bg);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--apple-border);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.nav-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--apple-text) !important;
+  transition: color var(--transition); /* Smooth color transition for dark mode */
+}
+
+.nav-links a {
+  margin-left: 25px;
+  color: var(--apple-text); /* Use variable */
+  font-size: 0.9rem;
+  opacity: 0.8;
+  transition: opacity 0.3s, color var(--transition); /* Add color transition for dark mode */
+  outline: none; /* Remove default outline */
+}
+
+.nav-links a:focus-visible { /* Custom focus state for accessibility */
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff; /* Force white text for contrast on video */
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.4); /* Darkens the video to make text readable */
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-top: 20px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8); /* Light secondary text */
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: var(--apple-blue);
+  color: white !important;
+  border-radius: 980px;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+  background: #0077ed;
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.4);
+}
+
+.cta-button:focus-visible {
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 2px;
+  border-radius: 980px;
+}
+
+/* BLOCK SECTIONS */
+.block {
+  max-width: 1000px;
+  margin: 160px auto;
+  padding: 0 40px;
+  padding-top: 60px;
+  text-align: center;
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+
+/* TEXT */
+.center {
+  color: var(--apple-secondary);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.skills span {
+  background: var(--apple-gray);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  cursor: default;
+  color: var(--apple-text);
+  border: 1px solid var(--apple-border);
+}
+
+.skills span:hover {
+  background: #e8e8ed;
+  transform: translateY(-2px);
+  box-shadow: var(--apple-shadow);
+}
+
+[data-theme="dark"] .skills span:hover {
+    background: #3a3a3c; /* Dark mode hover for skills */
+}
+
+/* PROJECT CARDS */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.project {
+  background: var(--apple-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: left;
+  transition: var(--transition);
+  box-shadow: var(--apple-shadow);
+  border: 1px solid var(--apple-border);
+  color: var(--apple-text);
+}
+
+.project:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.project-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.project-info {
+  padding: 30px;
+}
+
+.project h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+  color: var(--apple-text);
+}
+
+.project p {
+  color: var(--apple-secondary);
+  margin: 0;
+}
+
+/* Dark Mode Toggle Button (Conceptual) */
+.dark-mode-toggle {
+  background: var(--apple-gray);
+  color: var(--apple-text);
+  border: 1px solid var(--apple-border);
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* LINKS */
+a {
+  color: var(--apple-blue);
+  text-decoration: none;
+  transition: color var(--transition);
+  outline: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: var(--transition);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--apple-secondary);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--apple-border);
+  background: var(--apple-bg);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 30px;
+  text-align: left;
+}
+
+.footer-section h4 {
+  color: var(--apple-text);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: var(--apple-secondary);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: var(--apple-blue);
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--apple-border);
+  font-size: 0.8rem;
+  color: var(--apple-secondary);
+  text-align: center;
+}
+
+/* MODAL STYLES (assuming HTML structure for modal) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal.active {
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--apple-bg);
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  transform: translateY(20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  color: var(--apple-secondary);
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: var(--apple-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
