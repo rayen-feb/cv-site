@@ -35,8 +35,9 @@ function initReadMoreVisibility() {
 }
 
 window.addEventListener('load', () => {
-  ScrollTrigger.refresh();
+  lucide.createIcons(); // Ensure icons are created on load
   initReadMoreVisibility();
+  ScrollTrigger.refresh();
 });
 
 window.addEventListener('resize', initReadMoreVisibility);
