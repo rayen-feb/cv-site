@@ -329,3 +329,4 @@ document.addEventListener("click", (e) => {
     closeModal();
   }
 });
+lucide.createIcons();

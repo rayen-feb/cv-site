@@ -191,6 +191,21 @@ body {
 }
 
 /* Skill Card */
+
+
+.skill-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.skill-card h3 i {
+  width: 18px;
+  height: 18px;
+  color: var(--apple-blue);
+}
+
 .skill-card {
   background: var(--apple-bg);
   border: 1px solid var(--apple-border);
