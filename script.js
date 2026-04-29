@@ -58,6 +58,12 @@ function updateVideoFrame() {
   }
 }
 
+// Initialize video frame on load
+video.addEventListener('loadedmetadata', updateVideoFrame);
+
+// Fallback for immediate call in case metadata is already cached
+if (video.readyState >= 1) updateVideoFrame();
+
 window.addEventListener('scroll', () => {
   requestAnimationFrame(updateVideoFrame);
 });
