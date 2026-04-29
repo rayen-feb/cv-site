@@ -25,9 +25,11 @@
 
 html {
   scroll-behavior: smooth;
-  height: auto;
+  height: 100%; /* Ensure html takes full height */
   margin: 0; /* Ensure no default margin */
   overflow-x: hidden;
+  /* Ensure overflow-y is not hidden to allow sticky to work */
+  overflow-y: visible;
 }
 
 body {
@@ -36,10 +38,12 @@ body {
   background: var(--apple-bg);
   color: var(--apple-text);
   line-height: 1.6;
-  position: relative; /* Ensure body is a positioning context */
+  min-height: 100vh;
+  position: relative; /* Ensure body is a positioning context for absolute children if any */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overflow-y: visible;
 }
 
 /* NAVBAR */
@@ -94,8 +98,8 @@ body {
 
 /* SCROLL VIDEO SECTION (Apple-Style) */
 .scroll-section {
-  height: 400vh; /* Length of the scroll track */
-  background: #000;
+  height: auto; /* Now grows with all content inside */
+  background: #000; /* Fallback for bottom of page */
   position: relative;
   width: 100%;
   display: block;
@@ -110,17 +114,16 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 1;
+  z-index: 0; /* Lower than content */
   background: #000;
-  will-change: transform;
 }
 
 .hero-video {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: 0;
   filter: brightness(0.5);
@@ -136,7 +139,7 @@ body {
   width: 90%;
   max-width: 800px;
   pointer-events: none;
-  transition: opacity 0.2s ease-out;
+  transition: opacity 0.3s ease-out; /* Slightly adjusted for smoother text fades */
   color: #ffffff;
   z-index: 10;
 }
@@ -186,10 +189,13 @@ body {
 /* BLOCK SECTIONS */
 .block {
   max-width: 1000px;
-  margin: 160px auto;
+  margin: 0 auto 160px auto;
   padding: 0 40px;
   padding-top: 60px;
   text-align: center;
+  position: relative;
+  z-index: 2; /* Ensure content is above the video */
+  background: transparent; /* Allow video to show through */
 }
 
 h2 {
