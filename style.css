@@ -186,7 +186,7 @@ body {
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+  gap: 40px;
   margin-top: 40px;
   align-items: stretch;
 }
@@ -206,7 +206,6 @@ body {
 }
 
 .skill-card:hover {
-  transform: translateY(-6px) scale(1.01);
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
@@ -536,7 +535,7 @@ Apple-style feel
 
 /* aple cards */ 
 
-.project, .experience-card, .contact-card {
+.project, .experience-card, .contact-card, .skill-card {
   transform-style: preserve-3d;
   perspective: 1000px;
   will-change: transform;
