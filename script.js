@@ -219,16 +219,16 @@ projectTL.from("#projects h2", { opacity: 0, y: 20, duration: 0.6 })
 const skillTL = gsap.timeline({
   scrollTrigger: {
     trigger: "#skills",
-    start: "top 90%" // Trigger slightly earlier for better visibility
+    start: "top 85%",
+    toggleActions: "play none none reverse"
   }
 });
 
 skillTL.from("#skills h2", { opacity: 0, y: 20, duration: 0.6 })
   .from(".skill-card", {
   opacity: 0,
-  y: 60,
-  duration: 1,
-  stagger: 0.12,
+  y: 40,
+  duration: 0.8,
   ease: "power3.out"
 }, "-=0.4");
 

@@ -10,7 +10,7 @@
   --apple-border: rgba(0, 0, 0, 0.08);
   --apple-navbar-bg: rgba(255, 255, 255, 0.8);
   --apple-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease, border-color 0.5s ease;
 }
 
 /* Dark Mode */
@@ -260,17 +260,16 @@ body {
 
 /* DARK MODE FIX */
 [data-theme="dark"] .skill-card {
-  background: var(--apple-gray);
-  border-color: var(--apple-border);
+  background: #2c2c2e; /* Solid background */
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] .skill-tags span {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.12);
   color: var(--apple-text);
+  border-color: rgba(255, 255, 255, 0.1);
 }
-/* =========================
-   PROJECTS
-========================= */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
