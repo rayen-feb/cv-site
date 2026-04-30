@@ -220,12 +220,19 @@ body {
   color: var(--apple-text);
 }
 
-/* ICON */
-.skill-card h3 svg {
+/* ICON FIXES */
+.skill-card h3 svg,
+.skill-card h3 i {
   width: 20px;
   height: 20px;
   stroke: var(--apple-blue);
+  fill: none;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* TAGS */
