@@ -78,6 +78,8 @@ gsap.utils.toArray(".experience-card").forEach((card, i) => {
 
 const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
+const scrollContainer = document.getElementById('hero-scroll');
+const video = document.getElementById('v0');
 
 const msg1 = document.getElementById('msg1');
 const msg2 = document.getElementById('msg2');
@@ -91,85 +93,68 @@ const lerp = (a, b, n) => a + (b - a) * n;
 
 video.addEventListener('loadedmetadata', () => {
 
-  const mainHeroTimeline = gsap.timeline({ // Consolidated hero timeline
+  gsap.timeline({
     scrollTrigger: {
-      id: "heroScroll",
       trigger: scrollContainer,
       start: "top top",
       end: "+=300%",
-      scrub: true,
+      scrub: 0.5, // smoother
       pin: true,
-      anticipatePin: 1, // Helps with smoother pinning
+      anticipatePin: 1,
       onUpdate: (self) => {
 
-        /* Progress bar */
+        // Progress bar
         progressBar.style.width = `${self.progress * 100}%`;
 
-        /* Smooth video scrubbing */
+        // Smooth video sync (better)
         if (video.duration) {
           const target = video.duration * self.progress;
-          currentTime = lerp(currentTime, target, 0.08);
+          currentTime = lerp(currentTime, target, 0.15); // 🔥 faster + smoother
           video.currentTime = currentTime;
         }
       }
     }
   })
 
-  // 1. Video cinematic zoom + dark feel (integrated from the previous second heroTL)
-  .to(".hero-video", {
-    scale: 1.25,
-    filter: "brightness(0.3)",
-    ease: "none"
-  }, 0) // Start at the beginning of the timeline
-
-  /* Video zoom (Apple feel) */
+  /* VIDEO (single clean animation) */
   .to(video, {
-    scale: 1.1,
+    scale: 1.15,
+    filter: "brightness(0.5)",
     ease: "none"
   }, 0)
 
-  /* HERO TEXT */
+  /* TEXT 1 */
   .to(msg1, {
     opacity: 0,
-    y: -80,
-    pointerEvents: "none"
+    y: -60
   }, 0.2)
 
+  /* TEXT 2 */
   .fromTo(msg2,
-    { opacity: 0, y: 40 },
+    { opacity: 0, y: 50 },
     { opacity: 1, y: 0 }
   , 0.35)
 
   .to(msg2, {
     opacity: 0,
-    y: -40,
-    pointerEvents: "none"
+    y: -40
   }, 0.55)
 
+  /* TEXT 3 */
   .fromTo(msg3,
-    { opacity: 0, y: 40 },
+    { opacity: 0, y: 50 },
     { opacity: 1, y: 0 }
-  , 0.6)
+  , 0.65)
 
   .to(msg3, {
     opacity: 0,
-    y: -40,
-    pointerEvents: "none"
-  }, 0.8)
+    y: -40
+  }, 0.85)
 
-  // 3. Smooth fade overlay appears (integrated from the previous second heroTL)
+  /* FADE OUT */
   .to(fadeOverlay, {
-    opacity: 1,
-    ease: "none"
-  }, 0.9) // Adjusted timing to match original fade to black
-
-  // 2. Text parallax (Apple style depth) - integrated into main timeline
-  .to("#msg1", {
-    y: -120,
-    opacity: 0,
-    scale: 0.95,
-    ease: "power2.out"
-  }, 0); // Start at the beginning of the timeline
+    opacity: 1
+  }, 0.9);
 
 }); // End of video.addEventListener('loadedmetadata')
 

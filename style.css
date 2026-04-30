@@ -584,3 +584,9 @@ Apple-style feel
 .contact-card a:hover {
   color: var(--apple-blue);
 }
+
+
+.hero-video {
+  will-change: transform;
+  transform: scale(1);
+}
