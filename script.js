@@ -234,7 +234,7 @@ skillTL.from("#skills h2", { opacity: 0, y: 20, duration: 0.6 })
 
 /********************* */
 
-document.querySelectorAll(".project").forEach(card => {
+document.querySelectorAll(".project, .experience-card, .contact-card").forEach(card => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
 
