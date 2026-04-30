@@ -78,8 +78,6 @@ gsap.utils.toArray(".experience-card").forEach((card, i) => {
 
 const scrollContainer = document.getElementById('hero-scroll');
 const video = document.getElementById('v0');
-const scrollContainer = document.getElementById('hero-scroll');
-const video = document.getElementById('v0');
 
 const msg1 = document.getElementById('msg1');
 const msg2 = document.getElementById('msg2');
