@@ -186,7 +186,7 @@ body {
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
+  gap: 60px 40px; /* Increased vertical gap between cards */
   margin-top: 40px;
   align-items: stretch;
 }
@@ -203,10 +203,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-
-.skill-card:hover {
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 /* TITLE */
@@ -337,12 +333,6 @@ body {
 
   /* important: makes cards visible properly */
   display: block;
-}
-
-/* Hover effect */
-.experience-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 
 /* Title */
@@ -542,7 +532,7 @@ Apple-style feel
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.project:hover {
+.project:hover, .skill-card:hover, .experience-card:hover, .contact-card:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
@@ -576,11 +566,6 @@ Apple-style feel
   text-align: left;
   box-shadow: var(--apple-shadow);
   transition: var(--transition);
-}
-
-.contact-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 .contact-card h3 {
