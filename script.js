@@ -1,7 +1,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================
-   1. REVEAL ANIMATION
+   1. REVEAL ANIMATIO
 ========================= */
 
 const observerOptions = {
