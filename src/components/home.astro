@@ -48,7 +48,11 @@ import SkillsList from "../React/SkillsList.tsx";
         <a href="#projects" class="primary-cta">
           View projects
         </a>
-        <a href="/cv/Ahmed_Rayen_Bouazizi_CV_International.pdf" download class="secondary-cta">
+        <a
+          href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}cv/Ahmed_Rayen_Bouazizi_CV_International.pdf`}
+          download
+          class="secondary-cta"
+        >
           Download CV
         </a>
       </div>
