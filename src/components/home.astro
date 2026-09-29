@@ -1,0 +1,575 @@
+---
+import LetterGlitch from "../React/LetterGlitch.tsx";
+import LogoWall from "../components/logoWall.astro";
+import SkillsList from "../React/SkillsList.tsx";
+---
+
+<section class="text-[var(--white)] mt-12 md:mt-0 relative z-10" id="home">
+  <div class="matrix-hero-shell">
+    <canvas class="matrix-bg" aria-hidden="true"></canvas>
+  </div>
+
+  <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14 relative z-10">
+    <div class="text-left space-y-5">
+      <div class="hero-glow"></div>
+      <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
+        <div class="flex-1 space-y-4">
+          <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
+            Hi, I'm Ahmed Rayen
+          </p>
+          <div
+            class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
+          >
+            <h1
+              class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none"
+            >
+              Data Science <br /> Engineer
+            </h1>
+            <p class="text-md md:text-2xl text-[var(--white-icon)]">
+              Building <span class="text-[var(--sec)] shiny-sec">AI-powered</span> solutions
+              for predictive analytics, automation, and business intelligence across
+              healthcare, finance, and SaaS.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-shrink-0 w-full max-w-[210px] md:max-w-[240px]">
+          <div class="rounded-[28px] border border-[var(--white-icon-tr)] bg-[#1414149c] p-2.5 shadow-[0_20px_45px_rgba(0,0,0,0.22)]">
+            <img
+              src="/images/profile.jpg"
+              alt="Ahmed Rayen portrait"
+              class="h-[220px] md:h-[260px] w-full rounded-[18px] object-cover object-center"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row reveal">
+        <a href="#projects" class="primary-cta">
+          View projects
+        </a>
+        <a href="/cv/Ahmed_Rayen_Bouazizi_CV_International.pdf" download class="secondary-cta">
+          Download CV
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-start gap-3 pt-2 md:pt-4">
+        <a
+          target="_blank"
+          href="https://github.com/rayen-feb"
+          aria-label="GitHub"
+          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-8"
+          >
+            <path
+              d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/rayen-feb-/"
+          aria-label="LinkedIn"
+          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-8"
+          >
+            <path
+              d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          target="_blank"
+          href="mailto:arayen138@gmail.com"
+          aria-label="Email"
+          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2.1em"
+            height="2.1em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-box reveal">
+      <span class="section-kicker">About me</span>
+      <p>
+        I build AI-powered products that turn messy data into clearer decisions,
+        automate repetitive work, and help businesses ship smarter, faster,
+        and more confidently.
+      </p>
+    </div>
+
+    <div class="strengths-row reveal" aria-label="Key strengths">
+      <span>Machine Learning</span>
+      <span>Predictive Analytics</span>
+      <span>Power BI</span>
+      <span>OCR Automation</span>
+      <span>SaaS Products</span>
+      <span>Data Storytelling</span>
+    </div>
+
+    <div class="stack-header reveal">
+      <span class="section-kicker">Core stack</span>
+      <span class="stack-rule"></span>
+    </div>
+    <LogoWall />
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3 reveal">
+      <div class="stat-card">
+        <span class="stat-number">600+</span>
+        <span class="stat-label">Visitors</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">4+</span>
+        <span class="stat-label">Projects shipped</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2+</span>
+        <span class="stat-label">Years building AI products</span>
+      </div>
+    </div>
+
+    <section class="mt-14 md:mt-20 reveal">
+      <div class="section-heading">
+        <span class="section-kicker">Experience</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="mt-6 grid gap-5 lg:grid-cols-2">
+        <article class="experience-card">
+          <div class="experience-top">
+            <span class="experience-role">Founder & Developer</span>
+            <span class="experience-period">2026 — Present</span>
+          </div>
+          <p class="experience-company">FactuScan — SaaS OCR Platform</p>
+          <p>
+            Founded and developed FactuScan, a SaaS platform for automated invoice
+            processing and structured data extraction. I built the OCR pipeline,
+            data cleaning workflows, and product architecture to turn unstructured
+            documents into usable business data and reduce manual entry.
+          </p>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-top">
+            <span class="experience-role">Freelancer</span>
+            <span class="experience-period">2025 — 2026</span>
+          </div>
+          <p class="experience-company">IGASIT — Tunisia / France</p>
+          <p>
+            Worked on enterprise financial IT systems and business intelligence
+            solutions using Sage 100c, SQL, and Power BI. I automated reporting
+            and built ETL workflows to improve accounting visibility, regulatory
+            compliance, and decision-making across teams.
+          </p>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-top">
+            <span class="experience-role">Freelance Data Scientist</span>
+            <span class="experience-period">2025 — Present</span>
+          </div>
+          <p>
+            Designed and deployed machine learning solutions across healthcare,
+            agriculture, and predictive analytics. My work covered preprocessing,
+            feature engineering, model training, evaluation, and client-facing
+            delivery for classification, forecasting, and OCR-based automation.
+          </p>
+        </article>
+
+        <article class="experience-card">
+          <div class="experience-top">
+            <span class="experience-role">ML Engineer</span>
+            <span class="experience-period">2024 — Present</span>
+          </div>
+          <p class="experience-company">Academic & Personal Projects</p>
+          <p>
+            Built multiple applied ML systems including predictive healthcare,
+            agricultural optimization, and sports analytics projects. I focused on
+            end-to-end problem solving: data cleaning, feature engineering, model
+            optimization, and interpretable business insights.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="flex flex-col lg:flex-row items-center gap-8 mt-14 md:mt-20 reveal">
+      <SkillsList client:load />
+      <div
+        class="flex justify-center md:w-full md:h-[292px] size-[290px] pt-3 md:pt-9 md:ml-16"
+      >
+        <LetterGlitch
+          client:load
+          glitchColors={["#5e4491", "#A476FF", "#241a38"]}
+          glitchSpeed={33}
+          centerVignette={false}
+          outerVignette={true}
+          smooth={true}
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const canvas = document.querySelector('.matrix-bg');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0;
+    let h = 0;
+    const columns = [];
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()<>/\\';
+
+    const createMatrix = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      const fontSize = 20;
+      const cols = Math.floor(w / fontSize);
+
+      columns.length = 0;
+      for (let i = 0; i < cols; i++) {
+        columns.push(Math.random() * -100);
+      }
+    };
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(10, 10, 14, 0.14)';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.font = '20px monospace';
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = 'rgba(164, 118, 255, 0.9)';
+
+      for (let i = 0; i < columns.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        const x = i * 20;
+        const y = columns[i] * 20;
+
+        const isHighlight = i % 4 === 0;
+        ctx.fillStyle = isHighlight ? 'rgba(214, 196, 255, 0.95)' : 'rgba(164, 118, 255, 0.8)';
+        ctx.fillText(text, x, y);
+
+        if (y > h && Math.random() > 0.97) {
+          columns[i] = 0;
+        }
+
+        columns[i] += 0.9;
+      }
+
+      ctx.shadowBlur = 0;
+    };
+
+    createMatrix();
+    draw();
+    setInterval(draw, 55);
+    window.addEventListener('resize', createMatrix);
+  })();
+</script>
+
+<script is:inline>
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+  }
+</script>
+
+<style is:global>
+  .matrix-hero-shell {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: min(760px, 72vh);
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+    opacity: 0.8;
+  }
+
+  .hero-glow {
+    position: absolute;
+    left: 14%;
+    top: 8%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(164, 118, 255, 0.32), rgba(164, 118, 255, 0.08) 35%, transparent 70%);
+    filter: blur(28px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .matrix-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.38;
+    background: radial-gradient(circle at top, rgba(164, 118, 255, 0.14), transparent 42%);
+  }
+
+  .about-box {
+    position: relative;
+    margin-top: 0.5rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.2rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(164, 118, 255, 0.06));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .about-box p {
+    margin-top: 0.7rem;
+    color: var(--white-icon);
+    line-height: 1.8;
+    font-size: 0.98rem;
+  }
+
+  .strengths-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .strengths-row span {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(164, 118, 255, 0.3);
+    background: rgba(164, 118, 255, 0.08);
+    color: var(--white);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .stack-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: -0.15rem;
+  }
+
+  .stack-rule {
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, rgba(164, 118, 255, 0.55), transparent);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    padding-top: 0.5rem;
+  }
+
+  .primary-cta,
+  .secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .primary-cta {
+    background: linear-gradient(135deg, rgba(164, 118, 255, 0.18), rgba(164, 118, 255, 0.28));
+    border: 1px solid rgba(164, 118, 255, 0.45);
+    color: var(--white);
+  }
+
+  .secondary-cta {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white-icon);
+  }
+
+  .primary-cta:hover,
+  .secondary-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(164, 118, 255, 0.16);
+  }
+
+  .shiny-sec {
+    background: linear-gradient(135deg, #a476ff 25%, #eee5ff 50%, #a476ff 75%);
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1.15rem 1.1rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(164, 118, 255, 0.08));
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .stat-number {
+    font-size: clamp(1.4rem, 2vw, 2.1rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.05em;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white-icon);
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sec);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(164, 118, 255, 0.6), rgba(255, 255, 255, 0.08));
+  }
+
+  .experience-card {
+    position: relative;
+    padding: 1.4rem 1.3rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.92), rgba(18, 18, 18, 0.9));
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .experience-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(164, 118, 255, 0.5);
+  }
+
+  .experience-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .experience-role {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .experience-period {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white-icon);
+  }
+
+  .experience-company {
+    margin-top: 0.35rem;
+    margin-bottom: 0.35rem;
+    color: var(--sec);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .experience-card p {
+    color: var(--white-icon);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .matrix-hero-shell {
+      height: min(620px, 64vh);
+    }
+
+    .matrix-bg {
+      opacity: 0.28;
+    }
+
+    .hero-glow {
+      left: 8%;
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: 100% 50%;
+    }
+    30%,
+    70% {
+      background-position: 0% 50%;
+    }
+  }
+</style>

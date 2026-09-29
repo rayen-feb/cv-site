@@ -1,0 +1,142 @@
+---
+const technologies = [
+  { label: "Python", icon: "PY", tone: "purple" },
+  { label: "SQL", icon: "/svg/mysql.svg", tone: "blue" },
+  { label: "Flask", icon: "FL", tone: "gray" },
+  { label: "TensorFlow", icon: "TF", tone: "orange" },
+  { label: "PyTorch", icon: "PT", tone: "red" },
+  { label: "Power BI", icon: "PBI", tone: "green" },
+  { label: "Docker", icon: "/svg/bash.svg", tone: "cyan" },
+  { label: "Git", icon: "/svg/git.svg", tone: "pink" },
+  { label: "AWS", icon: "AWS", tone: "amber" },
+  { label: "GCP", icon: "GCP", tone: "blue" },
+  { label: "Pandas", icon: "PD", tone: "violet" },
+  { label: "NumPy", icon: "NP", tone: "indigo" },
+  { label: "Scikit-Learn", icon: "SK", tone: "rose" },
+  { label: "OCR", icon: "OCR", tone: "gold" },
+  { label: "React", icon: "/svg/react.svg", tone: "sky" },
+  { label: "Node.js", icon: "/svg/nodejs.svg", tone: "emerald" },
+  { label: "JavaScript", icon: "/svg/javaScript.svg", tone: "yellow" },
+  { label: "TypeScript", icon: "/svg/typeScript.svg", tone: "blue" },
+  { label: "HTML5", icon: "/svg/HTML5.svg", tone: "orange" },
+  { label: "CSS3", icon: "/svg/CSS3.svg", tone: "blue" },
+  { label: "Tailwind", icon: "/svg/tailwindcss.svg", tone: "cyan" },
+  { label: "Astro", icon: "/svg/astro.svg", tone: "purple" },
+  { label: "SaaS", icon: "SA", tone: "purple" },
+  { label: "Automation", icon: "AI", tone: "gray" },
+];
+---
+
+<div class="relative overflow-x-hidden py-8">
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-20"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-20"></div>
+
+  <div class="tech-marquee flex w-max will-change-transform">
+    {
+      [...technologies, ...technologies].map((tech, index) => (
+        <div
+          class="tech-pill group transition-all duration-300"
+          aria-hidden={index >= technologies.length ? "true" : "false"}
+        >
+          {tech.icon.startsWith("/") ? (
+            <img src={tech.icon} alt={tech.label} class="tech-icon" />
+          ) : (
+            <span class={`tech-badge ${tech.tone}`}>{tech.icon}</span>
+          )}
+          <span class="tech-label">{tech.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style is:global>
+  @keyframes scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  .tech-marquee {
+    display: flex;
+    align-items: center;
+    animation: scroll 40s linear infinite;
+    gap: 0.75rem;
+  }
+
+  .tech-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 12px 24px rgba(0,0,0,0.08);
+    white-space: nowrap;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .tech-pill:hover {
+    transform: translateY(-2px);
+    border-color: rgba(164, 118, 255, 0.38);
+    box-shadow: inset 0 0 0 1px rgba(164,118,255,0.12), 0 16px 32px rgba(164,118,255,0.12);
+  }
+
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.6rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: white;
+  }
+
+  .tech-badge.purple { background: linear-gradient(135deg, #7c4dff, #a476ff); }
+  .tech-badge.blue { background: linear-gradient(135deg, #2d7ff9, #6aa8ff); }
+  .tech-badge.gray { background: linear-gradient(135deg, #4b5563, #9ca3af); }
+  .tech-badge.orange { background: linear-gradient(135deg, #ff8a00, #ffb25c); }
+  .tech-badge.red { background: linear-gradient(135deg, #f04a57, #ff8a80); }
+  .tech-badge.green { background: linear-gradient(135deg, #18b779, #68d6a5); }
+  .tech-badge.cyan { background: linear-gradient(135deg, #0ea5e9, #67e8f9); }
+  .tech-badge.pink { background: linear-gradient(135deg, #ef4444, #f472b6); }
+  .tech-badge.amber { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+  .tech-badge.violet { background: linear-gradient(135deg, #9b5de5, #c084fc); }
+  .tech-badge.indigo { background: linear-gradient(135deg, #5b5ef8, #8aa3ff); }
+  .tech-badge.rose { background: linear-gradient(135deg, #f43f5e, #fb7185); }
+  .tech-badge.gold { background: linear-gradient(135deg, #d4a017, #f6d365); }
+  .tech-badge.sky { background: linear-gradient(135deg, #0ea5e9, #7dd3fc); }
+  .tech-badge.emerald { background: linear-gradient(135deg, #10b981, #6ee7b7); }
+  .tech-badge.yellow { background: linear-gradient(135deg, #facc15, #fde68a); color: #1f2937; }
+
+  .tech-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(164, 118, 255, 0.45));
+  }
+
+  .tech-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--white-icon);
+    text-transform: none;
+  }
+
+  @media (max-width: 768px) {
+    .tech-marquee {
+      animation-duration: 28s;
+    }
+
+    .tech-pill {
+      padding: 0.55rem 0.8rem;
+    }
+  }
+</style>
